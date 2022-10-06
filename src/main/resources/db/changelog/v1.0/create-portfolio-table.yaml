@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-portfolio-table
+      author: MYBatishchev
+      comment: "Создание таблицы с записями о портфолио пользователей"
+      changes:
+        - createTable:
+            tableName: portfolio
+            remarks: "Таблица с записями о портфолио"
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(36)
+                  remarks: "Название портфеля"
+                  constraints:
+                    nullable: false

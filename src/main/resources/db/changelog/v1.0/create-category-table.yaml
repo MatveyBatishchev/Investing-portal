@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-category-table
+      author: MYBatishchev
+      comment: "Создание таблицы с записями о категориях криптовалют"
+      changes:
+        - createTable:
+            tableName: category
+            remarks: "Таблица с записями о категориях криптовалюте"
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(32)
+                  remarks: "Полное название категории криптовалюты"
+                  constraints:
+                    nullable: false
