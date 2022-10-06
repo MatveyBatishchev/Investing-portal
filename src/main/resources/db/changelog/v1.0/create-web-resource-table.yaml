@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-web-resource-table
+      author: MYBatishchev
+      comment: "Создание таблицы с записями о веб-ресурсах, связанных с криптовалютой"
+      changes:
+        - createTable:
+            tableName: web-resource
+            remarks: "Таблица с записями о веб-ресурсах, связанных с криптовалютой"
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: coin_id
+                  type: integer
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_web-resource_coin_id
+                    onDelete: CASCADE
+                    references: coin(id)
+              - column:
+                  name: name
+                  type: varchar(32)
+                  remarks: "Полное название ресурса"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: url
+                  type: text
+                  remarks: "Ссылка на интернет-ресурс"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: smallint
+                  remarks: "Тип веб-ресурса: Веб-сайт / Соц. сеть / Обозреватели / Кошелёк"
+                  constraints:
+                    nullable: false

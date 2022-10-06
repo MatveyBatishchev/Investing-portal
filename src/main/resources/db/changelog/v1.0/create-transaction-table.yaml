@@ -1,0 +1,74 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-transaction-table
+      author: MYBatishchev
+      comment: "Создание таблицы с записями о транзакциях"
+      changes:
+        - createTable:
+            tableName: transaction
+            remarks: "Таблица с записями о транзакциях"
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: coin_id
+                  type: integer
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_transaction_coin_id
+                    onDelete: CASCADE
+                    references: coin(id)
+              - column:
+                  name: portfolio_id
+                  type: integer
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_transaction_portfolio_id
+                    onDelete: CASCADE
+                    references: portfolio(id)
+              - column:
+                  name: type
+                  type: smallint
+                  remarks: "Тип транзакции: Купить / Продать / Снять / Добавить"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price_per_coin
+                  type: numeric
+                  remarks: "Цена за единицу криптовалюты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: double precision
+                  remarks: "Кол-во купленных единиц криптовалюты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sum
+                  type: numeric
+                  remarks: "Сумма потраченная во время транзакции"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date
+                  type: datetime
+                  remarks: "Дата и время совершения транзакции"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fees
+                  type: numeric
+                  remarks: "Налог заплаченный во время совершения транзакции"
+                  constraints:
+                    nullable: true
+              - column:
+                  name: comments
+                  type: text
+                  remarks: "Комментарии к транзакции"
+                  constraints:
+                    nullable: true
