@@ -17,3 +17,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: create-coin-category-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-fiat-currency-table.yaml

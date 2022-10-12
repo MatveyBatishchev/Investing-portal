@@ -15,20 +15,154 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: api_id
+                  type: varchar(50)
+                  remarks: "ID криптовалюты API coingeko"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: symbol
+                  type: varchar(8)
+                  remarks: "Код / сокращённое название криптовалюты"
+                  constraints:
+                    nullable: false
+              - column:
                   name: name
                   type: varchar(32)
                   remarks: "Полное название криптовалюты"
                   constraints:
                     nullable: false
               - column:
-                  name: api_code
-                  type: varchar(8)
-                  remarks: "Сокращённое название криптовалюты"
+                  name: image
+                  type: varchar(255)
+                  remarks: "Ссылка на изображение с логотипом криптовалюты"
                   constraints:
                     nullable: false
               - column:
-                  name: max_volume
-                  type: bigint
-                  remarks: "Максимальное количество монет, прописанное в коде блокчейна"
+                  name: current_price
+                  type: numeric
+                  remarks: "Текщая цена криптовалюты"
                   constraints:
-                    nullable: true
+                    nullable: false
+              - column:
+                  name: market_cap
+                  type: numeric
+                  remarks: "Рыночная капитализация криптовалюты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: market_cap_rank
+                  type: int
+                  remarks: "Ранг рыночной капитализации по версии coingeko"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fully_diluted_valuation
+                  type: numeric
+                  remarks: "Полностью разбавленная капитализация криптовалюты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: total_volume
+                  type: numeric
+                  remarks: "Объём торгов криптовалюты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: high_24h
+                  type: numeric
+                  remarks: "Максимум стоимости криптовалюты за 24 часа"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: low_24h
+                  type: numeric
+                  remarks: "Минимум стоимости криптовалюты за 24 часа"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price_change_24h
+                  type: numeric
+                  remarks: "Разница цены криптомонеты за 24 часа"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price_change_percentage_24h
+                  type: double precision
+                  remarks: "Разница цены криптомонеты за 24 часа в процентах"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: market_cap_change_24h
+                  type: numeric
+                  remarks: " Разница рыночной капитализации криптомонеты за 24 часа"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: market_cap_change_percentage_24h
+                  type: double precision
+                  remarks: "Разница рыночной капитализации за 24 часа в процентах"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: circulating_supply
+                  type: numeric
+                  remarks: "Циркулирующее предложение криптомонеты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: total_supply
+                  type: numeric
+                  remarks: "Общее предложение криптомонеты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: max_supply
+                  type: numeric
+                  remarks: "Максимальный объём криптомонеты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ath
+                  type: numeric
+                  remarks: "Значение исторического максимума криптомонеты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ath_change_percentage
+                  type: double precision
+                  remarks: "На сколько процентов изменилась криптомонеты относительно исторического максимума"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ath_date
+                  type: datetime
+                  remarks: "Дата исторического максимума цены криптомонеты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: atl
+                  type: numeric
+                  remarks: "Значение исторического минимума криптомонеты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: atl_change_percentage
+                  type: double precision
+                  remarks: "На сколько процентов изменилась криптомонеты относительно исторического минимума"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: atl_date
+                  type: datetime
+                  remarks: "Дата исторического минимума цены криптомонеты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_updated
+                  type: datetime
+                  remarks: "Дата последнего обновления информации о криптомонете"
+                  constraints:
+                    nullable: false
+
+

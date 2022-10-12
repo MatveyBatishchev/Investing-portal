@@ -119,6 +119,12 @@ public class Coin {
     private double totalSupply;
 
     /**
+     * Максимальный объём монеты
+     */
+    @JsonProperty("max_supply")
+    private double maxSupply;
+
+    /**
      * Значение исторического максимума монеты
      */
     @JsonProperty("ath")
