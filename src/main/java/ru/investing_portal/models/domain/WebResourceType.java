@@ -17,7 +17,7 @@ public enum WebResourceType {
     }
 
     /**
-     * @return код типа веб ресурса в виде цифрового кода
+     * @return цифровой код веб ресурса
      */
     public int getCode() {
         return code;
