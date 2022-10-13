@@ -2,9 +2,7 @@ package ru.investing_portal.models.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -15,11 +13,14 @@ public class Portfolio {
      * Идентификатор портфолио
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
 
     /**
      * Название портфолио
      */
+    @Column(name="name")
     private String name;
 
 }
