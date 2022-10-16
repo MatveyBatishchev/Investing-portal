@@ -1,11 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: create-fiat-currency-table
+      id: create-fiat_currency-table
       author: MYBatishchev
       comment: "Создание таблицы с записями о фиатных валютах"
       changes:
         - createTable:
-            tableName: fiat-currency
+            tableName: fiat_currency
             remarks: "Таблица с записями о фиатных валютах"
             columns:
               - column:

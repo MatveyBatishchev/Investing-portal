@@ -10,13 +10,13 @@ databaseChangeLog:
       file: create-transaction-table.yaml
   - include:
       relativeToChangelogFile: true
-      file: create-web-resource-table.yaml
+      file: create-web_resource-table.yaml
   - include:
       relativeToChangelogFile: true
       file: create-category-table.yaml
   - include:
       relativeToChangelogFile: true
-      file: create-coin-category-table.yaml
+      file: create-coin_category-table.yaml
   - include:
       relativeToChangelogFile: true
-      file: create-fiat-currency-table.yaml
+      file: create-fiat_currency-table.yaml

@@ -1,11 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: create-web-resource-table
+      id: create-web_resource-table
       author: MYBatishchev
       comment: "Создание таблицы с записями о веб-ресурсах, связанных с криптовалютой"
       changes:
         - createTable:
-            tableName: web-resource
+            tableName: web_resource
             remarks: "Таблица с записями о веб-ресурсах, связанных с криптовалютой"
             columns:
               - column:
@@ -19,7 +19,7 @@ databaseChangeLog:
                   type: integer
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_web-resource_coin_id
+                    foreignKeyName: fk_web_resource_coin_id
                     onDelete: CASCADE
                     references: coin(id)
               - column:

@@ -19,7 +19,8 @@ public class Coin {
      */
     @JsonIgnore
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="coin_sequence", sequenceName = "coin_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="coin_sequence")
     @Column(name="id")
     private int id;
 

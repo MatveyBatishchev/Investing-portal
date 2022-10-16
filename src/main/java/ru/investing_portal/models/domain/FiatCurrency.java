@@ -7,14 +7,15 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name="fiat-currency")
+@Table(name="fiat_currency")
 public class FiatCurrency {
 
     /**
      * Идентификатор фиатной валюты
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="fiat_currency_sequence", sequenceName = "fiat_currency_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="fiat_currency_sequence")
     @Column(name="id")
     private int id;
 
