@@ -1,15 +1,11 @@
 package ru.investing_portal.models.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name="transaction")
 public class Transaction {
@@ -65,6 +61,7 @@ public class Transaction {
      * Тип транзакции
      */
     @Column(name="type")
+    @Enumerated(EnumType.ORDINAL)
     private TransactionType transactionType;
 
     /**
@@ -78,20 +75,5 @@ public class Transaction {
      */
     @Column(name="comments")
     private String comments;
-
-    /**
-     * Constructor without ID
-     */
-    // FIXME: Try to generate this constructor with lombok -> see about entity generated id, while saving
-    public Transaction(Portfolio portfolio, double pricePerCoin, double amount, double sum, DateTime date, TransactionType transactionType, double fees, String comments) {
-        this.portfolio = portfolio;
-        this.pricePerCoin = pricePerCoin;
-        this.amount = amount;
-        this.sum = sum;
-        this.date = date;
-        this.transactionType = transactionType;
-        this.fees = fees;
-        this.comments = comments;
-    }
 
 }

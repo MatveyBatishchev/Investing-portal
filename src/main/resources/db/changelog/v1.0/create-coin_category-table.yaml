@@ -13,14 +13,8 @@ databaseChangeLog:
                   type: integer
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_coin_category_coin_id
-                    onDelete: CASCADE
-                    references: coin(id)
               - column:
                   name: category_id
                   type: integer
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_coin_category_category_id
-                    onDelete: CASCADE
-                    references: category(id)

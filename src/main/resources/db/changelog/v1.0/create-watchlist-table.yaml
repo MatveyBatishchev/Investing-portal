@@ -1,12 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: create-portfolio-table
+      id: create-watchlist-table
       author: MYBatishchev
-      comment: "Создание таблицы с записями о портфолио пользователей"
+      comment: "Создание таблицы с записями о watchlist-ах пользователей"
       changes:
         - createTable:
-            tableName: portfolio
-            remarks: "Таблица с записями о портфолио"
+            tableName: watchlist
+            remarks: "Таблица с записями о watchlist-ах"
             columns:
               - column:
                   name: id
@@ -17,12 +17,12 @@ databaseChangeLog:
               - column:
                   name: name
                   type: varchar(36)
-                  remarks: "Название портфеля"
+                  remarks: "Название watchlist-а"
                   constraints:
                     nullable: false
               - column:
                   name: comments
                   type: text
-                  remarks: "Комментарии к портфолио"
+                  remarks: "Комментарии к watchlist-у"
                   constraints:
                     nullable: false

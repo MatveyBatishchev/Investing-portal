@@ -19,9 +19,6 @@ databaseChangeLog:
                   type: integer
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_web_resource_coin_id
-                    onDelete: CASCADE
-                    references: coin(id)
               - column:
                   name: name
                   type: varchar(32)

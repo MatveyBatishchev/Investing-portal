@@ -7,6 +7,7 @@ import lombok.Data;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -19,7 +20,7 @@ public class Coin {
      */
     @JsonIgnore
     @Id
-    @SequenceGenerator(name="coin_sequence", sequenceName = "coin_id_seq")
+    @SequenceGenerator(name="coin_sequence", sequenceName = "coin_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="coin_sequence")
     @Column(name="id")
     private int id;
@@ -30,6 +31,9 @@ public class Coin {
     @JsonProperty("id")
     @Column(name="api_id")
     private String api_id;
+
+    @ManyToMany(mappedBy="coin")
+    private Set<Category> category;
 
     /**
      * Сокращённое название монеты
@@ -71,7 +75,7 @@ public class Coin {
      */
     @JsonProperty("market_cap_rank")
     @Column(name="market_cap_rank")
-    private long marketCapRank;
+    private int marketCapRank;
 
     /**
      * Полностью разбавленная капитализация

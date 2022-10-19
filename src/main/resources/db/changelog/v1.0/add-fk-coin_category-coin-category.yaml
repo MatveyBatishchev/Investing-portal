@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-fk-transaction-coin-portfolio
+      author: MYBatishchev
+      comment: "Автоматически удаляет строки из coin_category при удалении coin или category"
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: coin_category
+            baseColumnNames: coin_id
+            constraintName: fk_coin_category_coin_id
+            onDelete: CASCADE
+            referencedTableName: coin
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: coin_category
+            baseColumnNames: category_id
+            constraintName: fk_coin_category_category_id
+            onDelete: CASCADE
+            referencedTableName: category
+            referencedColumnNames: id

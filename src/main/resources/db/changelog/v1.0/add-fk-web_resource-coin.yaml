@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-fk-web_resource-coin
+      author: MYBatishchev
+      comment: "Автоматически удаляет строки из web-resource при удалении coin"
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: web_resource
+            baseColumnNames: coin_id
+            constraintName: fk_web_resource_coin_id
+            onDelete: CASCADE
+            referencedTableName: coin
+            referencedColumnNames: id
