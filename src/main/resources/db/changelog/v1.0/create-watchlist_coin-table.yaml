@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-watchlist_coin-table
+      author: MYBatishchev
+      comment: "Создание промежуточной таблицы между watchlist-ом и монетами"
+      changes:
+        - createTable:
+            tableName: watchlist_coin
+            remarks: "Промежуточная таблица между watchlist-ом и монетами"
+            columns:
+              - column:
+                  name: watchlist_id
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: coin_id
+                  type: integer
+                  constraints:
+                    nullable: false

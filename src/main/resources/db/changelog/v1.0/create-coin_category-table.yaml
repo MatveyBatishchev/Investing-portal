@@ -1,11 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: create-coin-category-table
+      id: create-coin_category-table
       author: MYBatishchev
       comment: "Создание промежуточной таблицы между криптовалютой и ей категориями"
       changes:
         - createTable:
-            tableName: coin-category
+            tableName: coin_category
             remarks: "Промежуточная таблица между криптовалютой и ей категориями"
             columns:
               - column:
@@ -13,14 +13,8 @@ databaseChangeLog:
                   type: integer
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_coin-category_coin_id
-                    onDelete: CASCADE
-                    references: coin(id)
               - column:
                   name: category_id
                   type: integer
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_coin-category_category_id
-                    onDelete: CASCADE
-                    references: category(id)

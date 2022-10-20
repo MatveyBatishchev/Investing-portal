@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-fk-watchlist_coin-watchlist-coin
+      author: MYBatishchev
+      comment: "Автоматически удаляет строки из watchlist_coin при удалении watchlist или coin"
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: watchlist_coin
+            baseColumnNames: watchlist_id
+            constraintName: fk_watchlist_coin_watchlist_id
+            onDelete: CASCADE
+            referencedTableName: watchlist
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: watchlist_coin
+            baseColumnNames: coin_id
+            constraintName: fk_watchlist_coin_coin_id
+            onDelete: CASCADE
+            referencedTableName: coin
+            referencedColumnNames: id

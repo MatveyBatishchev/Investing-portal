@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-fiat_currency-table
+      author: MYBatishchev
+      comment: "Создание таблицы с записями о фиатных валютах"
+      changes:
+        - createTable:
+            tableName: fiat_currency
+            remarks: "Таблица с записями о фиатных валютах"
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: symbol
+                  type: varchar(8)
+                  remarks: "Код / сокращённое название фиатной валюты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(36)
+                  remarks: "Название фиатной валюты"
+                  constraints:
+                    nullable: true
+              - column:
+                  name: rate
+                  type: double precision
+                  remarks: "Обменный курс валюты относительно американского доллара"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_updated
+                  type: datetime
+                  remarks: "Дата последнего обновления информации о фиатной валюте"
+                  constraints:
+                    nullable: false

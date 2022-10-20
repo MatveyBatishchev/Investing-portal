@@ -7,13 +7,34 @@ databaseChangeLog:
       file: create-portfolio-table.yaml
   - include:
       relativeToChangelogFile: true
+      file: create-watchlist-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-watchlist_coin-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: add-fk-watchlist_coin-watchlist-coin.yaml
+  - include:
+      relativeToChangelogFile: true
       file: create-transaction-table.yaml
   - include:
       relativeToChangelogFile: true
-      file: create-web-resource-table.yaml
+      file: add-fk-transaction-coin-portfolio.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-web_resource-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: add-fk-web_resource-coin.yaml
   - include:
       relativeToChangelogFile: true
       file: create-category-table.yaml
   - include:
       relativeToChangelogFile: true
-      file: create-coin-category-table.yaml
+      file: create-coin_category-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: add-fk-coin_category-coin-category.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-fiat_currency-table.yaml
