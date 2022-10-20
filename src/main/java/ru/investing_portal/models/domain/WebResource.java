@@ -1,6 +1,8 @@
 package ru.investing_portal.models.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -21,6 +23,8 @@ public class WebResource {
     /**
      * Идентификатор монеты, связанной с веб-ресурсом
      */
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name="coin_id")
     private Coin coin;

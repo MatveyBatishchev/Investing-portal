@@ -24,4 +24,10 @@ public class Portfolio {
     @Column(name="name")
     private String name;
 
+    /**
+     * Комментарии к портфолио
+     */
+    @Column(name="comments")
+    private String comments;
+
 }

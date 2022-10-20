@@ -33,7 +33,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: lastUpdated
+                  name: last_updated
                   type: datetime
                   remarks: "Дата последнего обновления информации о фиатной валюте"
                   constraints:

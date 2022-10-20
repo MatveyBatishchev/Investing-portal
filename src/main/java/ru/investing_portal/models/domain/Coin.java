@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -32,8 +35,11 @@ public class Coin {
     @Column(name="api_id")
     private String api_id;
 
-    @ManyToMany(mappedBy="coin")
-    private Set<Category> category;
+    // FIXME: Пока что, я не уверен нужно ли делать bidirectional связь
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy="coins")
+    private Set<Category> categories = new HashSet<>();
 
     /**
      * Сокращённое название монеты

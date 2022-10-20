@@ -1,8 +1,11 @@
 package ru.investing_portal.models.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -22,11 +25,13 @@ public class Category {
     /**
      * Список монеты связанных с категорией
      */
-    @ManyToMany
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="coin_category",
-            joinColumns={@JoinColumn(name="coin_id")},
-            inverseJoinColumns={@JoinColumn(name="category_id")})
-    private Set<Coin> coin;
+            joinColumns={@JoinColumn(name="category_id")},
+            inverseJoinColumns={@JoinColumn(name="coin_id")})
+    private Set<Coin> coins = new HashSet<>();
 
     /**
      * Название категории

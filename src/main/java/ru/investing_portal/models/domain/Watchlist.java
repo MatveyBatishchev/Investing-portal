@@ -1,8 +1,11 @@
 package ru.investing_portal.models.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -34,10 +37,12 @@ public class Watchlist {
     /**
      * Список монеты связанных с watchlist-ом
      */
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany
     @JoinTable(name="watchlist_coin",
             joinColumns={@JoinColumn(name="watchlist_id")},
             inverseJoinColumns={@JoinColumn(name="coin_id")})
-    private Set<Coin> coin;
+    private Set<Coin> coins = new HashSet<>();
 
 }

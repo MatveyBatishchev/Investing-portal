@@ -40,7 +40,7 @@ public class FiatCurrency {
     /**
      * Дата последнего обновления информации о фиатной валюте
      */
-    @Column(name="lastUpdated")
+    @Column(name="last_updated")
     private DateTime lastUpdated;
 
 }

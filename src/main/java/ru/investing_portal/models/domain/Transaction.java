@@ -1,6 +1,8 @@
 package ru.investing_portal.models.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
@@ -22,6 +24,8 @@ public class Transaction {
     /**
      * Портфолио, в котором была совершена транзакция
      */
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name="portfolio_id")
     private Portfolio portfolio;
@@ -29,6 +33,8 @@ public class Transaction {
     /**
      * Монета, связанная с транзакцией
      */
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name="coin_id")
     private Coin coin;

@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ru.investing_portal.models.domain.WebResource;
 
 @Repository
-public interface WebResourceRepository extends JpaRepository<WebResource, Long> {
+public interface WebResourceRepository extends JpaRepository<WebResource, Integer> {
 }
