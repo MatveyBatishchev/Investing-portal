@@ -16,9 +16,11 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: symbol
-                  type: varchar(8)
+                  type: varchar(5)
                   remarks: "Код / сокращённое название фиатной валюты"
                   constraints:
+                    primaryKey: true
+                    unique: true
                     nullable: false
               - column:
                   name: name
