@@ -14,7 +14,7 @@ public class Category {
      * Идентификатор категории
      */
     @Id
-    @SequenceGenerator(name="category_sequence", sequenceName = "category_id_seq")
+    @SequenceGenerator(name="category_sequence", sequenceName = "category_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="category_sequence")
     @Column(name="id")
     private int id;

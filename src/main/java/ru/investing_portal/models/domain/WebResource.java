@@ -13,7 +13,7 @@ public class WebResource {
      * Идентификатор веб-ресурса
      */
     @Id
-    @SequenceGenerator(name="web_resource_sequence", sequenceName = "web_resource_id_seq")
+    @SequenceGenerator(name="web_resource_sequence", sequenceName = "web_resource_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="web_resource_sequence")
     @Column(name="id")
     private int id;

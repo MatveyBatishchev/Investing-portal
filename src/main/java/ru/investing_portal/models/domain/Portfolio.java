@@ -13,7 +13,7 @@ public class Portfolio {
      * Идентификатор портфолио
      */
     @Id
-    @SequenceGenerator(name="portfolio_sequence", sequenceName = "portfolio_id_seq")
+    @SequenceGenerator(name="portfolio_sequence", sequenceName = "portfolio_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="portfolio_sequence")
     @Column(name="id")
     private int id;

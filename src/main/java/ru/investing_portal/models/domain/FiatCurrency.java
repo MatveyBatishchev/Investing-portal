@@ -14,7 +14,7 @@ public class FiatCurrency {
      * Идентификатор фиатной валюты
      */
     @Id
-    @SequenceGenerator(name="fiat_currency_sequence", sequenceName = "fiat_currency_id_seq")
+    @SequenceGenerator(name="fiat_currency_sequence", sequenceName = "fiat_currency_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="fiat_currency_sequence")
     @Column(name="id")
     private int id;

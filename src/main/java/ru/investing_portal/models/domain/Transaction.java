@@ -14,7 +14,7 @@ public class Transaction {
      * Идентификатор транзакции
      */
     @Id
-    @SequenceGenerator(name="transaction_sequence", sequenceName = "transaction_id_seq")
+    @SequenceGenerator(name="transaction_sequence", sequenceName = "transaction_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="transaction_sequence")
     @Column(name="id")
     private int id;
