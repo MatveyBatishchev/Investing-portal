@@ -1,11 +1,13 @@
 package ru.investing_portal.models.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name="fiat_currency")
 public class FiatCurrency {
@@ -43,4 +45,9 @@ public class FiatCurrency {
     @Column(name="last_updated")
     private DateTime lastUpdated;
 
+    public FiatCurrency(String symbol, double rate, DateTime lastUpdated) {
+        this.symbol = symbol;
+        this.rate = rate;
+        this.lastUpdated = lastUpdated;
+    }
 }
