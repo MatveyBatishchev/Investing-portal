@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.investing_portal.feign.CoinGekoClient;
 import ru.investing_portal.feign.CurrencyRatesClient;
-import ru.investing_portal.models.domain.CurrencyRateRecord;
+import ru.investing_portal.models.domain.Portfolio;
 import ru.investing_portal.repos.*;
-
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor(onConstructor=@__({@Autowired}))
@@ -45,13 +43,17 @@ public class TestController {
 
     @GetMapping()
     public void runTest() {
-        CurrencyRateRecord currencyRateRecord = currencyRatesClient.getCurrencyRates(currencyRatesApiCode,
-                baseCurrency, true, "USD,AUD,BRL,CAD,CHF,CLP,CNY,CZK," +
-                        "DKK,EUR,GBP,HKD,HUF,IDR,ILS,INR,JPY,KRW,MXN,MYR,NOK,NZD," +
-                        "PHP,PKR,PLN,RUB,SEK,SGD,THB,TRY,TWD,ZAR,VND,MAD,IRR,ARS,RON,UAH,NGN,AED,COP,EGP,SAR,BDT,GHS,BGN,VES");
-        for (Map.Entry<String, Double> pair : currencyRateRecord.getRates().entrySet()) {
-            fiatCurrencyRepository.updateFiatCurrency(pair.getKey(), pair.getValue());
-        }
+//        CurrencyRateRecord currencyRateRecord = currencyRatesClient.getCurrencyRates(currencyRatesApiCode,
+//                baseCurrency, true, "USD,AUD,BRL,CAD,CHF,CLP,CNY,CZK," +
+//                        "DKK,EUR,GBP,HKD,HUF,IDR,ILS,INR,JPY,KRW,MXN,MYR,NOK,NZD," +
+//                        "PHP,PKR,PLN,RUB,SEK,SGD,THB,TRY,TWD,ZAR,VND,MAD,IRR,ARS,RON,UAH,NGN,AED,COP,EGP,SAR,BDT,GHS,BGN,VES");
+//        for (Map.Entry<String, Double> pair : currencyRateRecord.getRates().entrySet()) {
+//            fiatCurrencyRepository.updateFiatCurrency(pair.getKey(), pair.getValue());
+//        }
+        Portfolio portfolio = new Portfolio();
+        portfolio.setName("New portfolio");
+        portfolio.setComments("That is my main portfolio for european market");
+        portfolioRepository.save(portfolio);
     }
 
 }
