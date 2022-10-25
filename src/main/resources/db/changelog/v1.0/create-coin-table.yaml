@@ -87,12 +87,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: price_change_percentage_24h
-                  type: double precision
-                  remarks: "Разница цены криптомонеты за 24 часа в процентах"
-                  constraints:
-                    nullable: false
-              - column:
                   name: market_cap_change_24h
                   type: numeric
                   remarks: " Разница рыночной капитализации криптомонеты за 24 часа"
@@ -156,6 +150,24 @@ databaseChangeLog:
                   name: atl_date
                   type: datetime
                   remarks: "Дата исторического минимума цены криптомонеты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: change_percentage_1h
+                  type: double precision
+                  remarks: "Процент изменения цены криптовалюты за 1 час"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: change_percentage_24h
+                  type: double precision
+                  remarks: "Процент изменения цены криптовалюты за 24 часа"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: change_percentage_7d
+                  type: double precision
+                  remarks: "Процент изменения цены криптовалюты за 7 дней"
                   constraints:
                     nullable: false
               - column:

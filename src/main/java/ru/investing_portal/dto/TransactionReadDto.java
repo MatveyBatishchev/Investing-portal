@@ -5,13 +5,13 @@ import org.joda.time.DateTime;
 import ru.investing_portal.models.domain.TransactionType;
 
 @Data
-public class TransactionDto {
+public class TransactionReadDto {
 
     private int id;
 
     private int portfolioId;
 
-    private int coinId;
+    private CoinShortDto coinShortDto;
 
     private double pricePerCoin;
 

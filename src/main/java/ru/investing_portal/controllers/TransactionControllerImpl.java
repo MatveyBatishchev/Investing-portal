@@ -3,9 +3,9 @@ package ru.investing_portal.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RestController;
-import ru.investing_portal.dto.TransactionDto;
-import ru.investing_portal.mappers.TransactionDtoMapper;
-import ru.investing_portal.mappers.TransactionUpdateMapper;
+import ru.investing_portal.dto.TransactionCreateDto;
+import ru.investing_portal.dto.TransactionReadDto;
+import ru.investing_portal.mappers.TransactionMapper;
 import ru.investing_portal.models.domain.Transaction;
 import ru.investing_portal.repos.TransactionRepository;
 
@@ -18,26 +18,25 @@ public class TransactionControllerImpl implements TransactionController {
 
     private final TransactionRepository transactionRepository;
 
-    private final TransactionDtoMapper transactionDtoMapper;
+    private final TransactionMapper transactionMapper;
 
-    private final TransactionUpdateMapper transactionUpdateMapper;
 
     @Override
-    public void create(TransactionDto transactionDto) {
-        transactionRepository.save(transactionDtoMapper.toTransaction(transactionDto));
+    public void create(TransactionCreateDto transactionCreateDto) {
+        transactionRepository.save(transactionMapper.toTransaction(transactionCreateDto));
     }
 
     @Override
-    public TransactionDto read(int id) {
-        return transactionDtoMapper.toDto(transactionRepository.findById(id).get());
+    public TransactionReadDto read(int id) {
+        return transactionMapper.toDto(transactionRepository.findById(id).get());
     }
 
     // CHECKME: mapper ✓ or modifying query update
     @Override
-    public void update(int id, TransactionDto transactionDto) {
+    public void update(int id, TransactionCreateDto transactionCreateDto) {
         Transaction dbTransaction = transactionRepository.findById(id).get();
-        transactionDto.setId(id);
-        transactionUpdateMapper.updateTransactionFromDto(transactionDto, dbTransaction);
+        transactionCreateDto.setId(id);
+        transactionMapper.updateTransactionFromDto(transactionCreateDto, dbTransaction);
         transactionRepository.save(dbTransaction);
     }
 
@@ -47,11 +46,11 @@ public class TransactionControllerImpl implements TransactionController {
     }
 
     @Override
-    public List<TransactionDto> readAll(Integer pageNum, Integer perPage) {
+    public List<TransactionReadDto> readAll(Integer pageNum, Integer perPage) {
         if (perPage == null) perPage = 25; // Default page size
         if (pageNum == null) pageNum = 0;  // Default page number
         List<Transaction> transactions = transactionRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
-        return transactions.stream().map(transactionDtoMapper::toDto).collect(Collectors.toList());
+        return transactions.stream().map(transactionMapper::toDto).collect(Collectors.toList());
     }
 
 }

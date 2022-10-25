@@ -2,7 +2,8 @@ package ru.investing_portal.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.investing_portal.dto.TransactionDto;
+import ru.investing_portal.dto.TransactionCreateDto;
+import ru.investing_portal.dto.TransactionReadDto;
 
 import java.util.List;
 
@@ -11,15 +12,15 @@ public interface TransactionController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void create(@RequestBody TransactionDto transactionDto);
+    void create(@RequestBody TransactionCreateDto transactionCreateDto);
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    TransactionDto read(@PathVariable("id") int id);
+    TransactionReadDto read(@PathVariable("id") int id);
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void update(@PathVariable("id") int id, @RequestBody TransactionDto transactionDto);
+    void update(@PathVariable("id") int id, @RequestBody TransactionCreateDto transactionCreateDto);
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -27,7 +28,7 @@ public interface TransactionController {
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    List<TransactionDto> readAll(@RequestParam(value = "page", required = false) Integer pageNum,
-                                 @RequestParam(value = "per_page", required = false) Integer perPage);
+    List<TransactionReadDto> readAll(@RequestParam(value = "page", required = false) Integer pageNum,
+                                       @RequestParam(value = "per_page", required = false) Integer perPage);
 
 }

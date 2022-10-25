@@ -11,6 +11,7 @@ import java.util.List;
 public interface CoinGekoClient {
 
     @GetMapping("/coins/markets")
-    List<Coin> getCoinMarketsData(@RequestParam("vs_currency") String currencyCode);
+    List<Coin> getCoinMarketsData(@RequestParam("vs_currency") String currencyCode,
+                                  @RequestParam("price_change_percentage") String priceChangePercentage);
 
 }
