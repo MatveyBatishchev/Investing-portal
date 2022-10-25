@@ -45,8 +45,6 @@ public class CoinControllerImpl implements CoinController {
 
     @Override
     public List<CoinFullDto> readAll(Integer pageNum, Integer perPage) {
-        if (perPage == null) perPage = 25; // Default page size and number
-        if (pageNum == null) pageNum = 0;
         List<Coin> coins = coinRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
         return coins.stream().map(coinMapper::toDto).collect(Collectors.toList());
     }

@@ -25,4 +25,4 @@ databaseChangeLog:
                   type: text
                   remarks: "Комментарии к портфолио"
                   constraints:
-                    nullable: false
+                    nullable: true

@@ -52,6 +52,8 @@ public class TestController {
 //        for (Map.Entry<String, Double> pair : currencyRateRecord.getRates().entrySet()) {
 //            fiatCurrencyRepository.updateFiatCurrency(pair.getKey(), pair.getValue());
 //        }
+//        List<Coin> coins = coinGekoClient.getCoinMarketsData(baseCurrency, priceChangePercentage);
+//        coinRepository.saveAll(coins);
     }
 
 }

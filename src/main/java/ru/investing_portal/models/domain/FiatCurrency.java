@@ -45,9 +45,4 @@ public class FiatCurrency {
     @Column(name="last_updated")
     private DateTime lastUpdated;
 
-    public FiatCurrency(String symbol, double rate, DateTime lastUpdated) {
-        this.symbol = symbol;
-        this.rate = rate;
-        this.lastUpdated = lastUpdated;
-    }
 }

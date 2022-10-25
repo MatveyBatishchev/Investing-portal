@@ -47,8 +47,6 @@ public class TransactionControllerImpl implements TransactionController {
 
     @Override
     public List<TransactionReadDto> readAll(Integer pageNum, Integer perPage) {
-        if (perPage == null) perPage = 25; // Default page size
-        if (pageNum == null) pageNum = 0;  // Default page number
         List<Transaction> transactions = transactionRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
         return transactions.stream().map(transactionMapper::toDto).collect(Collectors.toList());
     }

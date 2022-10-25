@@ -27,7 +27,7 @@ public interface CoinController {
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    List<CoinFullDto> readAll(@RequestParam(value = "page", required = false) Integer pageNum,
-                              @RequestParam(value = "per_page", required = false) Integer perPage);
+    List<CoinFullDto> readAll(@RequestParam(value = "page", defaultValue = "0", required = false) Integer pageNum,
+                              @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);
 
 }

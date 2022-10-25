@@ -16,4 +16,13 @@ public interface CoinMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateCoinFromDto(CoinFullDto coinFullDto, @MappingTarget Coin entity);
+
+
+    default Coin fromCoinId(Integer id) {
+        if (id == null) return null;
+        Coin coin = new Coin();
+        coin.setId(id);
+        return coin;
+    }
+
 }

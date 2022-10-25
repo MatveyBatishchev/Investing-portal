@@ -28,18 +28,28 @@ public class Coin {
     @Column(name="id")
     private int id;
 
+    // FIXME: Посмотреть почему выгоднее bidirectional связь
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy="coins")
+    private Set<Category> categories = new HashSet<>();
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy="coins")
+    private Set<Watchlist> watchlists = new HashSet<>();
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy="coin")
+    private Set<WebResource> webResources = new HashSet<>();
+
     /**
      * Идентификатор монеты в api CoinGeko
      */
     @JsonProperty("id")
     @Column(name="api_id")
     private String api_id;
-
-    // FIXME: Пока что, я не уверен нужно ли делать bidirectional связь
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy="coins")
-    private Set<Category> categories = new HashSet<>();
 
     /**
      * Сокращённое название монеты
