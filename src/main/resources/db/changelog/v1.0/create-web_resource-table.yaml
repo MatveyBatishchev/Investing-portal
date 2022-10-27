@@ -21,13 +21,13 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: name
-                  type: varchar(32)
+                  type: varchar(36)
                   remarks: "Полное название ресурса"
                   constraints:
                     nullable: false
               - column:
                   name: url
-                  type: text
+                  type: varchar(255)
                   remarks: "Ссылка на интернет-ресурс"
                   constraints:
                     nullable: false

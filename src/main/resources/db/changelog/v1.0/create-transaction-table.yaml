@@ -47,7 +47,7 @@ databaseChangeLog:
                   type: numeric
                   remarks: "Сумма потраченная во время транзакции"
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: date
                   type: datetime
