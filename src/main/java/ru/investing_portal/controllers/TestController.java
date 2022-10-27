@@ -56,7 +56,7 @@ public class TestController {
                         "PHP,PKR,PLN,RUB,SEK,SGD,THB,TRY,TWD,ZAR,VND,MAD,IRR,ARS,RON,UAH,NGN,AED,COP,EGP,SAR,BDT,GHS,BGN,VES");
         for (Map.Entry<String, Double> pair : currencyRateRecord.getRates().entrySet()) {
             FiatCurrency fiatCurrency = new FiatCurrency();
-            fiatCurrency.setSymbol(pair.getKey());
+            fiatCurrency.setCode(pair.getKey());
             fiatCurrency.setRate(pair.getValue());
             fiatCurrency.setLastUpdated(DateTime.now());
             fiatCurrencyRepository.save(fiatCurrency);

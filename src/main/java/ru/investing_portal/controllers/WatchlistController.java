@@ -14,7 +14,7 @@ public interface WatchlistController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void create(@RequestBody WatchlistDto watchlistDto);
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     WatchlistDto read(@PathVariable("id") int id);
 
@@ -26,7 +26,7 @@ public interface WatchlistController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable("id") int id);
 
-    @GetMapping("/list")
+    @GetMapping(value = "/list", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     List<WatchlistDto> readAll(@RequestParam(value = "page", defaultValue = "0", required = false) Integer pageNum,
                                @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);

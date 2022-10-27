@@ -13,7 +13,7 @@ public interface WebResourceController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void create(@RequestBody WebResourceDto webResourceDto);
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     WebResourceDto read(@PathVariable("id") int id);
 
@@ -25,7 +25,7 @@ public interface WebResourceController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable("id") int id);
 
-    @GetMapping("/list")
+    @GetMapping(value = "/list", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     List<WebResourceDto> readAll(@RequestParam(value = "page", defaultValue = "0", required = false) Integer pageNum,
                                  @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);

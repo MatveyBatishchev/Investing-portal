@@ -15,7 +15,7 @@ public interface WebResourceMapper {
     @Mapping(target="coin", source = "coinId", qualifiedByName = "getCoinReferenceById")
     WebResource toWebResource(WebResourceDto webResourceDto);
 
-    @Mapping(target="coin", source = "coinId", qualifiedByName = "getCoinReferenceById")
+    @Mapping(target="coin", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateWebResourceFromDto(WebResourceDto webResourceDto, @MappingTarget WebResource entity);
 

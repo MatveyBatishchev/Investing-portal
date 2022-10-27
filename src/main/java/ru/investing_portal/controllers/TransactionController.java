@@ -14,7 +14,7 @@ public interface TransactionController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void create(@RequestBody TransactionCreateDto transactionCreateDto);
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     TransactionReadDto read(@PathVariable("id") int id);
 
@@ -26,9 +26,9 @@ public interface TransactionController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable("id") int id);
 
-    @GetMapping("/list")
+    @GetMapping(value = "/list", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     List<TransactionReadDto> readAll(@RequestParam(value = "page", defaultValue = "0", required = false) Integer pageNum,
-                                     @RequestParam(value = "per_page", defaultValue = "0", required = false) Integer perPage);
+                                     @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);
 
 }

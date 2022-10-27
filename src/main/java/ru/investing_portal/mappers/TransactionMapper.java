@@ -19,8 +19,8 @@ public interface TransactionMapper {
     @Mapping(target="portfolio", source = "portfolioId", qualifiedByName = "getPortfolioReferenceById")
     Transaction toTransaction(TransactionCreateDto transactionCreateDto);
 
-    @Mapping(target="coin", source = "coinId", qualifiedByName = "getCoinReferenceById")
-    @Mapping(target="portfolio", source = "portfolioId", qualifiedByName = "getPortfolioReferenceById")
+    @Mapping(target="coin", ignore = true)
+    @Mapping(target="portfolio", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateTransactionFromDto(TransactionCreateDto transactionCreateDto, @MappingTarget Transaction entity);
 }
