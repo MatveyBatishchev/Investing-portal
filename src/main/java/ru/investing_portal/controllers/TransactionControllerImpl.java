@@ -20,7 +20,6 @@ public class TransactionControllerImpl implements TransactionController {
 
     private final TransactionMapper transactionMapper;
 
-
     @Override
     public void create(TransactionCreateDto transactionCreateDto) {
         transactionRepository.save(transactionMapper.toTransaction(transactionCreateDto));
@@ -28,10 +27,9 @@ public class TransactionControllerImpl implements TransactionController {
 
     @Override
     public TransactionReadDto read(int id) {
-        return transactionMapper.toDto(transactionRepository.findById(id).get());
+        return transactionMapper.toReadDto(transactionRepository.findById(id).get());
     }
 
-    // CHECKME: mapper ✓ or modifying query update
     @Override
     public void update(int id, TransactionCreateDto transactionCreateDto) {
         Transaction dbTransaction = transactionRepository.findById(id).get();
@@ -48,7 +46,7 @@ public class TransactionControllerImpl implements TransactionController {
     @Override
     public List<TransactionReadDto> readAll(Integer pageNum, Integer perPage) {
         List<Transaction> transactions = transactionRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
-        return transactions.stream().map(transactionMapper::toDto).collect(Collectors.toList());
+        return transactions.stream().map(transactionMapper::toReadDto).collect(Collectors.toList());
     }
 
 }

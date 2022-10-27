@@ -7,11 +7,12 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import ru.investing_portal.dto.WatchlistDto;
 import ru.investing_portal.models.domain.Watchlist;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", config = IgnoreUnmappedMapperConfig.class)
 public interface WatchlistMapper {
 
     WatchlistDto toDto(Watchlist watchlist);
 
+    // {coins} are unmapped properties ↓↓↓
     Watchlist toWatchlist(WatchlistDto watchlistDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

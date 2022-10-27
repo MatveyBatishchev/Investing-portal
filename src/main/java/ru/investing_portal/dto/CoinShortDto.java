@@ -21,10 +21,10 @@ public class CoinShortDto {
 
     private double fullyDilutedValuation;
 
-    private double change1h;
+    private double changePercentage1h;
 
-    private double change24h;
+    private double changePercentage24h;
 
-    private double change7d;
+    private double changePercentage7d;
 
 }

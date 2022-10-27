@@ -10,8 +10,9 @@ import java.util.List;
 @Repository
 public interface CoinRepository extends JpaRepository<Coin, Integer> {
 
-    // FIXME: NonNull annotation want to be added
-    @Named("getReferenceById")
+    // FIXME: NotNullAPI annotation want to be added
+    @Override
+    @Named("getCoinReferenceById")
     Coin getReferenceById(Integer integer);
 
     List<Coin> findCoinsByCategoriesId(int id);

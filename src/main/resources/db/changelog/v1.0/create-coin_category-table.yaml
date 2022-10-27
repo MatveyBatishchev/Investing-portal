@@ -12,9 +12,11 @@ databaseChangeLog:
                   name: coin_id
                   type: integer
                   constraints:
+                    primaryKey: true
                     nullable: false
               - column:
                   name: category_id
                   type: integer
                   constraints:
+                    primaryKey: true
                     nullable: false

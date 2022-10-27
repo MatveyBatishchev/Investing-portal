@@ -24,8 +24,20 @@ public class FiatCurrency {
     /**
      * Аббревиатура фиатной валюты
      */
+    @Column(name="code")
+    private String code;
+
+    /**
+     * Символ фиатной валюты, например $
+     */
     @Column(name="symbol")
     private String symbol;
+
+    /**
+     * Ссылка на изображение с логотипом флага страны
+     */
+    @Column(name="image")
+    private String image;
 
     /**
      * Полное наименование фиатной валюты

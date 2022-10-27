@@ -29,6 +29,6 @@ public interface TransactionController {
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
     List<TransactionReadDto> readAll(@RequestParam(value = "page", defaultValue = "0", required = false) Integer pageNum,
-                                       @RequestParam(value = "per_page", defaultValue = "0", required = false) Integer perPage);
+                                     @RequestParam(value = "per_page", defaultValue = "0", required = false) Integer perPage);
 
 }

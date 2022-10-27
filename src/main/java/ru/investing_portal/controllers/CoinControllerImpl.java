@@ -27,7 +27,7 @@ public class CoinControllerImpl implements CoinController {
 
     @Override
     public CoinFullDto read(int id) {
-        return coinMapper.toDto(coinRepository.findById(id).get());
+        return coinMapper.toFullDto(coinRepository.findById(id).get());
     }
 
     @Override
@@ -46,6 +46,6 @@ public class CoinControllerImpl implements CoinController {
     @Override
     public List<CoinFullDto> readAll(Integer pageNum, Integer perPage) {
         List<Coin> coins = coinRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
-        return coins.stream().map(coinMapper::toDto).collect(Collectors.toList());
+        return coins.stream().map(coinMapper::toFullDto).collect(Collectors.toList());
     }
 }

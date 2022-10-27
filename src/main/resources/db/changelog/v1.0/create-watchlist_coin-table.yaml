@@ -12,9 +12,11 @@ databaseChangeLog:
                   name: watchlist_id
                   type: integer
                   constraints:
+                    primaryKey: true
                     nullable: false
               - column:
                   name: coin_id
                   type: integer
                   constraints:
+                    primaryKey: true
                     nullable: false
