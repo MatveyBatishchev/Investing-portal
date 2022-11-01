@@ -4,6 +4,8 @@ databaseChangeLog:
       author: MYBatishchev
       comment: "Создание таблицы с записями о watchlist-ах пользователей"
       changes:
+        - tagDatabase:
+            tag: create-watchlist-table
         - createTable:
             tableName: watchlist
             remarks: "Таблица с записями о watchlist-ах"

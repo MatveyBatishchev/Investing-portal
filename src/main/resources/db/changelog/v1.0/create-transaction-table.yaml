@@ -4,6 +4,8 @@ databaseChangeLog:
       author: MYBatishchev
       comment: "Создание таблицы с записями о транзакциях"
       changes:
+        - tagDatabase:
+            tag: create-transaction-table
         - createTable:
             tableName: transaction
             remarks: "Таблица с записями о транзакциях"

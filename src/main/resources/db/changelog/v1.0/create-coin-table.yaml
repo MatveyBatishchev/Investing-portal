@@ -4,6 +4,8 @@ databaseChangeLog:
       author: MYBatishchev
       comment: "Создание таблицы с записями о криптовалюте"
       changes:
+        - tagDatabase:
+            tag: create-coin-table
         - createTable:
             tableName: coin
             remarks: "Таблица с записями о криптовалюте"
@@ -13,6 +15,7 @@ databaseChangeLog:
                   type: serial
                   constraints:
                     primaryKey: true
+                    autoIncrement: true
                     nullable: false
               - column:
                   name: api_id

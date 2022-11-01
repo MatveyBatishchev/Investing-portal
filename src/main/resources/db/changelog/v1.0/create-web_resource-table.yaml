@@ -4,6 +4,8 @@ databaseChangeLog:
       author: MYBatishchev
       comment: "Создание таблицы с записями о веб-ресурсах, связанных с криптовалютой"
       changes:
+        - tagDatabase:
+            tag: create-web_resource-table
         - createTable:
             tableName: web_resource
             remarks: "Таблица с записями о веб-ресурсах, связанных с криптовалютой"

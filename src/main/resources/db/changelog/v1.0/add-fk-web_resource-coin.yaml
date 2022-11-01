@@ -4,6 +4,8 @@ databaseChangeLog:
       author: MYBatishchev
       comment: "Автоматически удаляет строки из web-resource при удалении coin"
       changes:
+        - tagDatabase:
+            tag: add-fk-web_resource-coin
         - addForeignKeyConstraint:
             baseTableName: web_resource
             baseColumnNames: coin_id

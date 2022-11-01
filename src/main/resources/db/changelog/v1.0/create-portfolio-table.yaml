@@ -4,6 +4,8 @@ databaseChangeLog:
       author: MYBatishchev
       comment: "Создание таблицы с записями о портфолио пользователей"
       changes:
+        - tagDatabase:
+            tag: create-portfolio-table
         - createTable:
             tableName: portfolio
             remarks: "Таблица с записями о портфолио"
