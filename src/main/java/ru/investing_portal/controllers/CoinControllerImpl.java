@@ -1,51 +1,40 @@
 package ru.investing_portal.controllers;
 
-import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import ru.investing_portal.dto.CoinFullDto;
-import ru.investing_portal.mappers.CoinMapper;
-import ru.investing_portal.models.domain.Coin;
-import ru.investing_portal.repos.CoinRepository;
+import ru.investing_portal.services.CoinService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CoinControllerImpl implements CoinController {
 
-    private final CoinRepository coinRepository;
-
-    private final CoinMapper coinMapper;
-
+    private final CoinService coinService;
 
     @Override
     public void create(CoinFullDto coinFullDto) {
-        coinRepository.save(coinMapper.toCoin(coinFullDto));
+        coinService.createCoin(coinFullDto);
     }
 
     @Override
     public CoinFullDto read(int id) {
-        return coinMapper.toFullDto(coinRepository.findById(id).get());
+        return coinService.findCoinById(id);
     }
 
     @Override
     public void update(int id, CoinFullDto coinFullDto) {
-        Coin dbCoin = coinRepository.findById(id).get();
-        coinFullDto.setId(id);
-        coinMapper.updateCoinFromDto(coinFullDto, dbCoin);
-        coinRepository.save(dbCoin);
+        coinService.updateCoin(id, coinFullDto);
     }
 
     @Override
     public void delete(int id) {
-        coinRepository.deleteById(id);
+        coinService.deleteCoinById(id);
     }
 
     @Override
     public List<CoinFullDto> readAll(Integer pageNum, Integer perPage) {
-        List<Coin> coins = coinRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
-        return coins.stream().map(coinMapper::toFullDto).collect(Collectors.toList());
+        return coinService.findAllCoins(pageNum, perPage);
     }
 }

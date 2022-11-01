@@ -1,51 +1,41 @@
 package ru.investing_portal.controllers;
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RestController;
 import ru.investing_portal.dto.PortfolioDto;
-import ru.investing_portal.mappers.PortfolioMapper;
-import ru.investing_portal.models.domain.Portfolio;
-import ru.investing_portal.repos.PortfolioRepository;
+import ru.investing_portal.services.PortfolioService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
 public class PortfolioControllerImpl implements PortfolioController {
 
-    private final PortfolioRepository portfolioRepository;
-
-    private final PortfolioMapper portfolioMapper;
+    private final PortfolioService portfolioService;
 
 
     @Override
     public void create(PortfolioDto portfolioDto) {
-        portfolioRepository.save(portfolioMapper.toPortfolio(portfolioDto));
+        portfolioService.createPortfolio(portfolioDto);
     }
 
     @Override
     public PortfolioDto read(int id) {
-        return portfolioMapper.toDto(portfolioRepository.findById(id).get());
+        return portfolioService.findPortfolioById(id);
     }
 
     @Override
     public void update(int id, PortfolioDto portfolioDto) {
-        Portfolio dbPortfolio = portfolioRepository.findById(id).get();
-        portfolioDto.setId(id);
-        portfolioMapper.updatePortfolioFromDto(portfolioDto, dbPortfolio);
-        portfolioRepository.save(dbPortfolio);
+        portfolioService.updatePortfolio(id, portfolioDto);
     }
 
     @Override
     public void delete(int id) {
-        portfolioRepository.deleteById(id);
+        portfolioService.deletePortfolioById(id);
     }
 
     @Override
     public List<PortfolioDto> readAll(Integer pageNum, Integer perPage) {
-        List<Portfolio> portfolios = portfolioRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
-        return portfolios.stream().map(portfolioMapper::toDto).collect(Collectors.toList());
+        return portfolioService.findAllPortfolios(pageNum, perPage);
     }
 }
