@@ -1,8 +1,12 @@
 package ru.investing_portal.models.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -23,6 +27,11 @@ public class Portfolio {
      */
     @Column(name="name")
     private String name;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy="portfolio")
+    private Set<Transaction> transactions = new HashSet<>();
 
     /**
      * Комментарии к портфолио

@@ -4,6 +4,8 @@ databaseChangeLog:
       author: MYBatishchev
       comment: "Автоматически удаляет строки из watchlist_coin при удалении watchlist или coin"
       changes:
+        - tagDatabase:
+            tag: add-fk-watchlist_coin-watchlist-coin
         - addForeignKeyConstraint:
             baseTableName: watchlist_coin
             baseColumnNames: watchlist_id

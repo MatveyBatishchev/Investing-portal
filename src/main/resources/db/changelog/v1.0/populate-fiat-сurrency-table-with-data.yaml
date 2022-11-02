@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: populate-fiat-сurrency-table-with-data
+      author: MYBatishchev
+      comment: "Заполняет таблицу фиатных валют необходимыми данными (названия, символы, ссылки на картинку)"
+      changes:
+        - tagDatabase:
+            tag: populate-fiat-сurrency-table-with-data
+        - sqlFile:
+            dbms: "postgresql"
+            encoding: "utf8"
+            endDelimiter: \nGO
+            splitStatements: true
+            stripComments: true
+            relativeToChangelogFile: false
+            path: ./src/main/resources/db/changelog/v1.0/sql/fill-in-fiat-currency-table.sql

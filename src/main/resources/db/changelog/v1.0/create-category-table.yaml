@@ -4,6 +4,8 @@ databaseChangeLog:
       author: MYBatishchev
       comment: "Создание таблицы с записями о категориях криптовалют"
       changes:
+        - tagDatabase:
+            tag: create-category-table
         - createTable:
             tableName: category
             remarks: "Таблица с записями о категориях криптовалюте"
@@ -16,7 +18,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: name
-                  type: varchar(32)
+                  type: varchar(36)
                   remarks: "Полное название категории криптовалюты"
                   constraints:
                     nullable: false

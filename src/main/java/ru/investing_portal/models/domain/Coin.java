@@ -28,18 +28,28 @@ public class Coin {
     @Column(name="id")
     private int id;
 
+    // FIXME: Посмотреть почему выгоднее bidirectional связь
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy="coins")
+    private Set<Category> categories = new HashSet<>();
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy="coins")
+    private Set<Watchlist> watchlists = new HashSet<>();
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy="coin")
+    private Set<WebResource> webResources = new HashSet<>();
+
     /**
      * Идентификатор монеты в api CoinGeko
      */
     @JsonProperty("id")
     @Column(name="api_id")
     private String api_id;
-
-    // FIXME: Пока что, я не уверен нужно ли делать bidirectional связь
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy="coins")
-    private Set<Category> categories = new HashSet<>();
 
     /**
      * Сокращённое название монеты
@@ -119,13 +129,6 @@ public class Coin {
     private double priceChange24h;
 
     /**
-     * Разница цены монеты за 24 часа в процентах
-     */
-    @JsonProperty("price_change_percentage_24h")
-    @Column(name="price_change_percentage_24h")
-    private double priceChangePercentage24h;
-
-    /**
      * Разница рыночной капитализации за 24 часа
      */
     @JsonProperty("market_cap_change_24h")
@@ -202,6 +205,27 @@ public class Coin {
     @JsonProperty("atl_date")
     @Column(name="atl_date")
     private DateTime atlDate;
+
+    /**
+     * Процент изменения цены криптовалюты за 1 час
+     */
+    @JsonProperty("price_change_percentage_1h_in_currency")
+    @Column(name="change_percentage_1h")
+    private double changePercentage1h;
+
+    /**
+     * Процент изменения цены криптовалюты за 24 часа
+     */
+    @JsonProperty("price_change_percentage_24h_in_currency")
+    @Column(name="change_percentage_24h")
+    private double changePercentage24h;
+
+    /**
+     * Процент изменения цены криптовалюты за 7 дней
+     */
+    @JsonProperty("price_change_percentage_7d_in_currency")
+    @Column(name="change_percentage_7d")
+    private double changePercentage7d;
 
     /**
      * Дата последнего обновления информации о монете

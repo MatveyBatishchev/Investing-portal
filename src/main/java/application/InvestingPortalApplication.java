@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableFeignClients(basePackages = {"ru.investing_portal.feign"})
+@EnableFeignClients("ru.investing_portal.feign")
 @EnableJpaRepositories("ru.investing_portal.repos")
 @EntityScan("ru.investing_portal.models.domain")
 @ComponentScan(basePackages = {"ru.investing_portal.*"})

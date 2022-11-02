@@ -27,6 +27,11 @@ public class Category {
      */
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+//    @Cascade({
+//            org.hibernate.annotations.CascadeType.SAVE_UPDATE,
+//            org.hibernate.annotations.CascadeType.MERGE,
+//            org.hibernate.annotations.CascadeType.PERSIST
+//    })
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="coin_category",
             joinColumns={@JoinColumn(name="category_id")},

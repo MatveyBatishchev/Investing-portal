@@ -4,6 +4,8 @@ databaseChangeLog:
       author: MYBatishchev
       comment: "Создание таблицы с записями о фиатных валютах"
       changes:
+        - tagDatabase:
+            tag: create-fiat_currency-table
         - createTable:
             tableName: fiat_currency
             remarks: "Таблица с записями о фиатных валютах"
@@ -15,7 +17,7 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: symbol
+                  name: code
                   type: varchar(5)
                   remarks: "Код / сокращённое название фиатной валюты"
                   constraints:
@@ -25,7 +27,19 @@ databaseChangeLog:
               - column:
                   name: name
                   type: varchar(36)
-                  remarks: "Название фиатной валюты"
+                  remarks: "Полное название фиатной валюты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: symbol
+                  type: varchar(4)
+                  remarks: "Символ фиатной валюты, например $"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: image
+                  type: varchar(255)
+                  remarks: "Ссылка на изображение с логотипом флага страны"
                   constraints:
                     nullable: true
               - column:
@@ -33,7 +47,7 @@ databaseChangeLog:
                   type: double precision
                   remarks: "Обменный курс валюты относительно американского доллара"
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: last_updated
                   type: datetime

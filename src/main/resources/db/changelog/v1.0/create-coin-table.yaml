@@ -4,6 +4,8 @@ databaseChangeLog:
       author: MYBatishchev
       comment: "Создание таблицы с записями о криптовалюте"
       changes:
+        - tagDatabase:
+            tag: create-coin-table
         - createTable:
             tableName: coin
             remarks: "Таблица с записями о криптовалюте"
@@ -13,6 +15,7 @@ databaseChangeLog:
                   type: serial
                   constraints:
                     primaryKey: true
+                    autoIncrement: true
                     nullable: false
               - column:
                   name: api_id
@@ -28,7 +31,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: name
-                  type: varchar(32)
+                  type: varchar(36)
                   remarks: "Полное название криптовалюты"
                   constraints:
                     nullable: false
@@ -84,12 +87,6 @@ databaseChangeLog:
                   name: price_change_24h
                   type: numeric
                   remarks: "Разница цены криптомонеты за 24 часа"
-                  constraints:
-                    nullable: false
-              - column:
-                  name: price_change_percentage_24h
-                  type: double precision
-                  remarks: "Разница цены криптомонеты за 24 часа в процентах"
                   constraints:
                     nullable: false
               - column:
@@ -156,6 +153,24 @@ databaseChangeLog:
                   name: atl_date
                   type: datetime
                   remarks: "Дата исторического минимума цены криптомонеты"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: change_percentage_1h
+                  type: double precision
+                  remarks: "Процент изменения цены криптовалюты за 1 час"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: change_percentage_24h
+                  type: double precision
+                  remarks: "Процент изменения цены криптовалюты за 24 часа"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: change_percentage_7d
+                  type: double precision
+                  remarks: "Процент изменения цены криптовалюты за 7 дней"
                   constraints:
                     nullable: false
               - column:

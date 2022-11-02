@@ -4,6 +4,8 @@ databaseChangeLog:
       author: MYBatishchev
       comment: "Создание промежуточной таблицы между криптовалютой и ей категориями"
       changes:
+        - tagDatabase:
+            tag: create-coin_category-table
         - createTable:
             tableName: coin_category
             remarks: "Промежуточная таблица между криптовалютой и ей категориями"
@@ -12,9 +14,11 @@ databaseChangeLog:
                   name: coin_id
                   type: integer
                   constraints:
+                    primaryKey: true
                     nullable: false
               - column:
                   name: category_id
                   type: integer
                   constraints:
+                    primaryKey: true
                     nullable: false

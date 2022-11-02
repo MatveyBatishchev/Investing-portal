@@ -4,6 +4,8 @@ databaseChangeLog:
       author: MYBatishchev
       comment: "Создание таблицы с записями о веб-ресурсах, связанных с криптовалютой"
       changes:
+        - tagDatabase:
+            tag: create-web_resource-table
         - createTable:
             tableName: web_resource
             remarks: "Таблица с записями о веб-ресурсах, связанных с криптовалютой"
@@ -21,13 +23,13 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: name
-                  type: varchar(32)
+                  type: varchar(36)
                   remarks: "Полное название ресурса"
                   constraints:
                     nullable: false
               - column:
                   name: url
-                  type: text
+                  type: varchar(255)
                   remarks: "Ссылка на интернет-ресурс"
                   constraints:
                     nullable: false

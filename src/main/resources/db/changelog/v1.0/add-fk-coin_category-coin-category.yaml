@@ -4,6 +4,8 @@ databaseChangeLog:
       author: MYBatishchev
       comment: "Автоматически удаляет строки из coin_category при удалении coin или category"
       changes:
+        - tagDatabase:
+            tag: add-fk-transaction-coin-portfolio
         - addForeignKeyConstraint:
             baseTableName: coin_category
             baseColumnNames: coin_id
