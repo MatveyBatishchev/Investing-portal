@@ -1,9 +1,6 @@
 package ru.investing_portal.mappers;
 
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 import ru.investing_portal.dto.PortfolioDto;
 import ru.investing_portal.models.domain.Portfolio;
 
@@ -14,6 +11,7 @@ public interface PortfolioMapper {
     PortfolioDto toDto(Portfolio portfolio);
 
     // {transactions} are unmapped properties ↓↓↓
+    @Mapping(target = "id", ignore = true) // during creating id will generate automatically
     Portfolio toPortfolio(PortfolioDto portfolioDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

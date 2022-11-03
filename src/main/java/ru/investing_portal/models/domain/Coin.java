@@ -9,6 +9,7 @@ import lombok.ToString;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -77,14 +78,14 @@ public class Coin {
      */
     @JsonProperty("current_price")
     @Column(name="current_price")
-    private double currentPrice;
+    private BigDecimal currentPrice;
 
     /**
      * Рыночная капитализация монеты
      */
     @JsonProperty("market_cap")
     @Column(name="market_cap")
-    private double marketCap;
+    private BigDecimal marketCap;
 
     /**
      * Позиция в рейтинге по рыночной капитализации
@@ -98,14 +99,14 @@ public class Coin {
      */
     @JsonProperty("fully_diluted_valuation")
     @Column(name="fully_diluted_valuation")
-    private double fullyDilutedValuation;
+    private long fullyDilutedValuation;
 
     /**
      * Объём торгов
      */
     @JsonProperty("total_volume")
     @Column(name="total_volume")
-    private double totalVolume;
+    private long totalVolume;
 
     /**
      * Максимум за 24 часа
@@ -126,14 +127,14 @@ public class Coin {
      */
     @JsonProperty("price_change_24h")
     @Column(name="price_change_24h")
-    private double priceChange24h;
+    private BigDecimal priceChange24h;
 
     /**
      * Разница рыночной капитализации за 24 часа
      */
     @JsonProperty("market_cap_change_24h")
     @Column(name="market_cap_change_24h")
-    private double marketCapChange24h;
+    private BigDecimal marketCapChange24h;
 
     /**
      * Разница рыночной капитализации за 24 часа в процентах
@@ -147,21 +148,21 @@ public class Coin {
      */
     @JsonProperty("circulating_supply")
     @Column(name="circulating_supply")
-    private double circulatingSupply;
+    private BigDecimal circulatingSupply;
 
     /**
      * Общее предложение монеты
      */
     @JsonProperty("total_supply")
     @Column(name="total_supply")
-    private double totalSupply;
+    private long totalSupply;
 
     /**
      * Максимальный объём монеты
      */
     @JsonProperty("max_supply")
     @Column(name="max_supply")
-    private double maxSupply;
+    private long maxSupply;
 
     /**
      * Значение исторического максимума монеты

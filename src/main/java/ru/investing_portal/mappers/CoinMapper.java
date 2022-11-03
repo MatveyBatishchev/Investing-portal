@@ -14,6 +14,7 @@ public interface CoinMapper {
     CoinShortDto toShortDto(Coin coin);
 
     // {categories, watchlists, webResources} are unmapped properties ↓↓↓
+    @Mapping(target = "id", ignore = true) // during creating id will generate automatically
     Coin toCoin(CoinFullDto coinFullDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

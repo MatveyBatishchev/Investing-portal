@@ -15,6 +15,7 @@ public interface TransactionMapper {
     @Mapping(target="portfolioId", expression = "java(transaction.getPortfolio().getId())")
     TransactionReadDto toReadDto(Transaction transaction);
 
+    @Mapping(target = "id", ignore = true) // during creating id will generate automatically
     @Mapping(target="coin", source = "coinId", qualifiedByName = "getCoinReferenceById")
     @Mapping(target="portfolio", source = "portfolioId", qualifiedByName = "getPortfolioReferenceById")
     Transaction toTransaction(TransactionCreateDto transactionCreateDto);

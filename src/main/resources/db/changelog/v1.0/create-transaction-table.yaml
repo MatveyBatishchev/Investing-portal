@@ -68,3 +68,7 @@ databaseChangeLog:
                   remarks: "Комментарии к транзакции"
                   constraints:
                     nullable: true
+        - addUniqueConstraint:
+            tableName: transaction
+            columnNames: coin_id, portfolio_id, date
+            constraintName: transaction_unique_key

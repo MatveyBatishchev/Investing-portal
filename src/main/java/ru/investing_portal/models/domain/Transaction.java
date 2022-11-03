@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @Entity
@@ -43,7 +44,7 @@ public class Transaction {
      * Цена за единику криптомонеты
      */
     @Column(name="price_per_coin")
-    private double pricePerCoin;
+    private BigDecimal pricePerCoin;
 
     /**
      * Кол-во купленных монет
@@ -55,7 +56,7 @@ public class Transaction {
      * Конечная сумма транзакции
      */
     @Column(name="sum")
-    private double sum;
+    private BigDecimal sum;
 
     /**
      * Дата совершения транзакции
@@ -74,7 +75,7 @@ public class Transaction {
      * Сумма запалченного налога во время совершения транзакции
      */
     @Column(name="fees")
-    private double fees;
+    private BigDecimal fees;
 
     /**
      * Комментарий к транзакции

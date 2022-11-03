@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -61,7 +62,7 @@ public class FiatCurrency {
      */
     @Schema(example = "3.672985", required = true)
     @Column(name="rate")
-    private double rate;
+    private BigDecimal rate;
 
     /**
      * Дата последнего обновления информации о фиатной валюте
