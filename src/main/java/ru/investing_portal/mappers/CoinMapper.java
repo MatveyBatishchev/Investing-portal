@@ -5,6 +5,9 @@ import ru.investing_portal.dto.CoinFullDto;
 import ru.investing_portal.dto.CoinShortDto;
 import ru.investing_portal.models.domain.Coin;
 
+import java.util.List;
+import java.util.Set;
+
 @Mapper(componentModel = "spring", config = IgnoreUnmappedMapperConfig.class)
 public interface CoinMapper {
 
@@ -19,6 +22,9 @@ public interface CoinMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateCoinFromDto(CoinFullDto coinFullDto, @MappingTarget Coin entity);
+
+    @IterableMapping(qualifiedByName = "toShortDto")
+    List<CoinShortDto> map(Set<Coin> coins);
 
 
 }

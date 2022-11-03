@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.investing_portal.feign.CoinGekoClient;
 import ru.investing_portal.feign.CurrencyRatesClient;
-import ru.investing_portal.models.domain.Coin;
 import ru.investing_portal.repos.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor(onConstructor=@__({@Autowired}))
@@ -59,8 +56,8 @@ public class TestController {
 //            fiatCurrency.setLastUpdated(DateTime.now());
 //            fiatCurrencyRepository.save(fiatCurrency);
 //        }
-        List<Coin> coins = coinGekoClient.getCoinMarketsData(baseCurrency, priceChangePercentage);
-        coinRepository.saveAll(coins);
+//        List<Coin> coins = coinGekoClient.getCoinMarketsData(baseCurrency, priceChangePercentage);
+//        coinRepository.saveAll(coins);
     }
 
 }

@@ -3,7 +3,8 @@ package ru.investing_portal.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import ru.investing_portal.dto.WatchlistDto;
+import ru.investing_portal.dto.WatchlistCreateDto;
+import ru.investing_portal.dto.WatchlistReadDto;
 import ru.investing_portal.mappers.WatchlistMapper;
 import ru.investing_portal.models.domain.Watchlist;
 import ru.investing_portal.repos.WatchlistRepository;
@@ -25,18 +26,18 @@ public class WatchlistService {
                 new EntityNotFoundException("Избранный лист с id " + id + " не был найден!"));
     }
 
-    public void createWatchlist(WatchlistDto watchlistDto) {
-        watchlistRepository.save(watchlistMapper.toWatchlist(watchlistDto));
+    public void createWatchlist(WatchlistCreateDto watchlistCreateDto) {
+        watchlistRepository.save(watchlistMapper.toWatchlist(watchlistCreateDto));
     }
 
-    public WatchlistDto findWatchlistById(int id) {
+    public WatchlistReadDto findWatchlistById(int id) {
         return watchlistMapper.toDto(getWatchlistById(id));
     }
 
-    public void updateWatchlist(int id, WatchlistDto watchlistDto) {
+    public void updateWatchlist(int id, WatchlistCreateDto watchlistCreateDto) {
         Watchlist dbWatchlist = getWatchlistById(id);
-        watchlistDto.setId(id);
-        watchlistMapper.updateWatchlistFromDto(watchlistDto, dbWatchlist);
+        watchlistCreateDto.setId(id);
+        watchlistMapper.updateWatchlistFromDto(watchlistCreateDto, dbWatchlist);
         watchlistRepository.save(dbWatchlist);
     }
 
@@ -44,7 +45,7 @@ public class WatchlistService {
         watchlistRepository.deleteById(id);
     }
 
-    public List<WatchlistDto> findAllWatchlists(Integer pageNum, Integer perPage) {
+    public List<WatchlistReadDto> findAllWatchlists(Integer pageNum, Integer perPage) {
         List<Watchlist> portfolios = watchlistRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
         return portfolios.stream().map(watchlistMapper::toDto).collect(Collectors.toList());
     }
