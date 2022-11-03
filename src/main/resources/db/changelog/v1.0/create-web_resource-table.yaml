@@ -39,3 +39,7 @@ databaseChangeLog:
                   remarks: "Тип веб-ресурса: Веб-сайт / Соц. сеть / Обозреватели / Кошелёк"
                   constraints:
                     nullable: false
+        - addUniqueConstraint:
+            tableName: web_resource
+            columnNames: coin_id, name
+            constraintName: web_resource_unique_key

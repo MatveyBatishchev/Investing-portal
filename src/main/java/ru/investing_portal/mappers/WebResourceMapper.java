@@ -12,6 +12,7 @@ public interface WebResourceMapper {
     @Mapping(target="coinId", expression = "java(webResource.getCoin().getId())")
     WebResourceDto toDto(WebResource webResource);
 
+    @Mapping(target = "id", ignore = true) // during creating id will generate automatically
     @Mapping(target="coin", source = "coinId", qualifiedByName = "getCoinReferenceById")
     WebResource toWebResource(WebResourceDto webResourceDto);
 

@@ -21,7 +21,6 @@ databaseChangeLog:
                   type: varchar(5)
                   remarks: "Код / сокращённое название фиатной валюты"
                   constraints:
-                    primaryKey: true
                     unique: true
                     nullable: false
               - column:
@@ -44,7 +43,7 @@ databaseChangeLog:
                     nullable: true
               - column:
                   name: rate
-                  type: double precision
+                  type: numeric
                   remarks: "Обменный курс валюты относительно американского доллара"
                   constraints:
                     nullable: true

@@ -61,25 +61,25 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: fully_diluted_valuation
-                  type: numeric
+                  type: bigint
                   remarks: "Полностью разбавленная капитализация криптовалюты"
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: total_volume
-                  type: numeric
+                  type: bigint
                   remarks: "Объём торгов криптовалюты"
                   constraints:
                     nullable: false
               - column:
                   name: high_24h
-                  type: numeric
+                  type: double precision
                   remarks: "Максимум стоимости криптовалюты за 24 часа"
                   constraints:
                     nullable: false
               - column:
                   name: low_24h
-                  type: numeric
+                  type: double precision
                   remarks: "Минимум стоимости криптовалюты за 24 часа"
                   constraints:
                     nullable: false
@@ -109,19 +109,19 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: total_supply
-                  type: numeric
+                  type: bigint
                   remarks: "Общее предложение криптомонеты"
                   constraints:
                     nullable: false
               - column:
                   name: max_supply
-                  type: numeric
+                  type: bigint
                   remarks: "Максимальный объём криптомонеты"
                   constraints:
                     nullable: false
               - column:
                   name: ath
-                  type: numeric
+                  type: double precision
                   remarks: "Значение исторического максимума криптомонеты"
                   constraints:
                     nullable: false
@@ -139,7 +139,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: atl
-                  type: numeric
+                  type: double precision
                   remarks: "Значение исторического минимума криптомонеты"
                   constraints:
                     nullable: false
@@ -179,5 +179,9 @@ databaseChangeLog:
                   remarks: "Дата последнего обновления информации о криптомонете"
                   constraints:
                     nullable: false
+        - addUniqueConstraint:
+            tableName: coin
+            columnNames: api_id, symbol, name
+            constraintName: coin_unique_key
 
 
