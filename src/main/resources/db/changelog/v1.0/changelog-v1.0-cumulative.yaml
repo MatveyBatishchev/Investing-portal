@@ -41,3 +41,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: populate-fiat-сurrency-table-with-data.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: populate-category-table-with-data.yaml
