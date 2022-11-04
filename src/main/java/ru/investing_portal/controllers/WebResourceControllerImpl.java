@@ -39,5 +39,10 @@ public class WebResourceControllerImpl implements WebResourceController {
         return webResourceService.findAllWebResources(pageNum, perPage);
     }
 
+    @Override
+    public List<WebResourceDto> readByCoinId(int coinId) {
+        return webResourceService.findWebResourcesByCoinId(coinId);
+    }
+
 }
 

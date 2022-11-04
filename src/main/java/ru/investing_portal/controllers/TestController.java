@@ -1,5 +1,6 @@
 package ru.investing_portal.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,8 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.investing_portal.feign.CoinGekoClient;
 import ru.investing_portal.feign.CurrencyRatesClient;
+import ru.investing_portal.models.domain.Coin;
 import ru.investing_portal.repos.*;
 
+import java.util.List;
+
+@Tag(name="test")
 @RestController
 @RequiredArgsConstructor(onConstructor=@__({@Autowired}))
 @RequestMapping("/test")
@@ -56,8 +61,8 @@ public class TestController {
 //            fiatCurrency.setLastUpdated(DateTime.now());
 //            fiatCurrencyRepository.save(fiatCurrency);
 //        }
-//        List<Coin> coins = coinGekoClient.getCoinMarketsData(baseCurrency, priceChangePercentage);
-//        coinRepository.saveAll(coins);
+        List<Coin> coins = coinGekoClient.getCoinMarketsData(baseCurrency, priceChangePercentage);
+        coinRepository.saveAll(coins);
     }
 
 }

@@ -39,4 +39,14 @@ public class WatchlistControllerImpl implements WatchlistController {
        return watchlistService.findAllWatchlists(pageNum, perPage);
     }
 
+    @Override
+    public void addCoin(int watchlistId, int coinId) {
+        watchlistService.addCoinToWatchlist(watchlistId, coinId);
+    }
+
+    @Override
+    public void delete(int watchlistId, int coinId) {
+        watchlistService.deleteCoinFromWatchlist(watchlistId, coinId);
+    }
+
 }

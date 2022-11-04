@@ -15,8 +15,15 @@ public interface WatchlistRepository extends JpaRepository<Watchlist, Integer> {
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO main.watchlist_coin(watchlist_id, coin_id) " +
-            "VALUES (:watchlistId, :coinId);", nativeQuery = true)
-    void addCoinToWatchlist(@Param(value = "watchlistId") Integer watchlistId,
-                            @Param(value = "coinId") Integer coinId);
+            "VALUES (:watchlistId, :coinId)", nativeQuery = true)
+    void addCoinToWatchlist(@Param(value = "watchlistId") int watchlistId,
+                            @Param(value = "coinId") int coinId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM main.watchlist_coin WHERE watchlist_id=:watchlistId AND coin_id=:coinId",
+            nativeQuery = true)
+    void deleteCoinFromWatchlist(@Param(value = "watchlistId") int watchlistId,
+                                 @Param(value = "coinId") int coinId);
 
 }

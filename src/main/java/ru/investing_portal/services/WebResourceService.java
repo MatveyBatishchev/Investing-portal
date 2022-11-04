@@ -49,4 +49,8 @@ public class WebResourceService {
         return webResources.stream().map(webResourceMapper::toDto).collect(Collectors.toList());
     }
 
+    public List<WebResourceDto> findWebResourcesByCoinId(int coinId) {
+        return webResourceMapper.map(webResourceRepository.findByCoinId(coinId));
+    }
+
 }

@@ -5,6 +5,8 @@ import ru.investing_portal.dto.WebResourceDto;
 import ru.investing_portal.models.domain.WebResource;
 import ru.investing_portal.repos.CoinRepository;
 
+import java.util.List;
+
 
 @Mapper(componentModel = "spring", config = IgnoreUnmappedMapperConfig.class, uses = { CoinRepository.class })
 public interface WebResourceMapper {
@@ -19,5 +21,7 @@ public interface WebResourceMapper {
     @Mapping(target="coin", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateWebResourceFromDto(WebResourceDto webResourceDto, @MappingTarget WebResource entity);
+
+    List<WebResourceDto> map(List<WebResource> webResources);
 
 }

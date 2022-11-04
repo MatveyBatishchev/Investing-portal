@@ -1,12 +1,14 @@
 package ru.investing_portal.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.investing_portal.dto.PortfolioDto;
 
 import java.util.List;
 
-@RequestMapping("/portfolio")
+@Tag(name="Portfolios")
+@RequestMapping("/portfolios")
 public interface PortfolioController {
 
     @PostMapping

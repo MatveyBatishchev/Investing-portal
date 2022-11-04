@@ -50,4 +50,12 @@ public class WatchlistService {
         return portfolios.stream().map(watchlistMapper::toDto).collect(Collectors.toList());
     }
 
+    public void addCoinToWatchlist(int watchlistId, int coinId) {
+        watchlistRepository.addCoinToWatchlist(watchlistId, coinId);
+    }
+
+    public void deleteCoinFromWatchlist(int watchlistId, int coinId) {
+        watchlistRepository.deleteCoinFromWatchlist(watchlistId, coinId);
+    }
+
 }
