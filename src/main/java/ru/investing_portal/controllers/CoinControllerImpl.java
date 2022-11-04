@@ -37,4 +37,11 @@ public class CoinControllerImpl implements CoinController {
     public List<CoinFullDto> readAll(Integer pageNum, Integer perPage) {
         return coinService.findAllCoins(pageNum, perPage);
     }
+
+    @Override
+    public List<CoinFullDto> readByCategoryId(int categoryId, Integer pageNum, Integer perPage) {
+        return coinService.findByCategoryId(categoryId, pageNum, perPage);
+    }
+
+
 }

@@ -9,7 +9,7 @@ import ru.investing_portal.dto.CategoryDto;
 import java.util.List;
 
 @Tag(name="Categories")
-@RequestMapping("/coins/categories")
+@RequestMapping("/categories")
 public interface CategoryController {
 
     @Operation(summary = "Get list of all categories")
@@ -19,12 +19,12 @@ public interface CategoryController {
                               @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);
 
     @Operation(summary = "Add coin to category")
-    @PostMapping("/{id}")
+    @PostMapping("/{id}/add-coin")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void addCoin(@PathVariable("id") int categoryId, @RequestParam("coin_id") int coinId);
 
     @Operation(summary = "Delete coin from category")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete-coin")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable("id") int categoryId, @RequestParam("coin_id") int coinId);
 

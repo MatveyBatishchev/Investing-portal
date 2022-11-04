@@ -1,6 +1,7 @@
 package ru.investing_portal.repos;
 
 import org.mapstruct.Named;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.investing_portal.models.domain.Coin;
@@ -15,6 +16,6 @@ public interface CoinRepository extends JpaRepository<Coin, Integer> {
     @Named("getCoinReferenceById")
     Coin getReferenceById(Integer integer);
 
-    List<Coin> findCoinsByCategoriesId(int id);
+    List<Coin> findCoinsByCategoriesId(int id, Pageable pageable);
 
 }

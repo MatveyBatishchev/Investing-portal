@@ -10,7 +10,6 @@ import ru.investing_portal.repos.CoinRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,7 +45,11 @@ public class CoinService {
 
     public List<CoinFullDto> findAllCoins(Integer pageNum, Integer perPage) {
         List<Coin> coins = coinRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
-        return coins.stream().map(coinMapper::toFullDto).collect(Collectors.toList());
+        return coinMapper.map(coins);
+    }
+
+    public List<CoinFullDto> findByCategoryId(int categoryId, Integer pageNum, Integer perPage) {
+        return coinMapper.map(coinRepository.findCoinsByCategoriesId(categoryId, PageRequest.of(pageNum, perPage)));
     }
 
 }

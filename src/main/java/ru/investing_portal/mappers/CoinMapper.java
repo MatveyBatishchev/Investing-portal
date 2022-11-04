@@ -11,9 +11,10 @@ import java.util.Set;
 @Mapper(componentModel = "spring", config = IgnoreUnmappedMapperConfig.class)
 public interface CoinMapper {
 
+    @Named("toCoinFullDto")
     CoinFullDto toFullDto(Coin coin);
 
-    @Named("toShortDto")
+    @Named("toCoinShortDto")
     CoinShortDto toShortDto(Coin coin);
 
     // {categories, watchlists, webResources} are unmapped properties ↓↓↓
@@ -23,8 +24,11 @@ public interface CoinMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateCoinFromDto(CoinFullDto coinFullDto, @MappingTarget Coin entity);
 
-    @IterableMapping(qualifiedByName = "toShortDto")
+    @IterableMapping(qualifiedByName = "toCoinShortDto")
     List<CoinShortDto> map(Set<Coin> coins);
+
+    @IterableMapping(qualifiedByName = "toCoinFullDto")
+    List<CoinFullDto> map(List<Coin> coins);
 
 
 }

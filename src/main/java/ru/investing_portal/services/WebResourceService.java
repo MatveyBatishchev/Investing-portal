@@ -10,7 +10,6 @@ import ru.investing_portal.repos.WebResourceRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,7 +45,7 @@ public class WebResourceService {
 
     public List<WebResourceDto> findAllWebResources(Integer pageNum, Integer perPage) {
         List<WebResource> webResources = webResourceRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
-        return webResources.stream().map(webResourceMapper::toDto).collect(Collectors.toList());
+        return webResourceMapper.map(webResources);
     }
 
     public List<WebResourceDto> findWebResourcesByCoinId(int coinId) {

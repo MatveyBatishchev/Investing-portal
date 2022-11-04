@@ -10,7 +10,6 @@ import ru.investing_portal.repos.PortfolioRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,7 +45,7 @@ public class PortfolioService {
 
     public List<PortfolioDto> findAllPortfolios(Integer pageNum, Integer perPage) {
         List<Portfolio> portfolios = portfolioRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
-        return portfolios.stream().map(portfolioMapper::toDto).collect(Collectors.toList());
+        return portfolioMapper.map(portfolios);
     }
 
 

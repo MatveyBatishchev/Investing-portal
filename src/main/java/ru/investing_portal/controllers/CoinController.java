@@ -1,5 +1,6 @@
 package ru.investing_portal.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,5 +32,13 @@ public interface CoinController {
     @ResponseStatus(HttpStatus.OK)
     List<CoinFullDto> readAll(@RequestParam(value = "page", defaultValue = "0", required = false) Integer pageNum,
                               @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);
+
+
+    @Operation(summary = "Find all coins associated with exact category")
+    @GetMapping(value = "/by-category", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    List<CoinFullDto> readByCategoryId(@RequestParam("category_id") int categoryId,
+                                       @RequestParam(value = "page", defaultValue = "0", required = false) Integer pageNum,
+                                       @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);
 
 }

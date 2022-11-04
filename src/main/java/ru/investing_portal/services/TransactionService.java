@@ -11,7 +11,6 @@ import ru.investing_portal.repos.TransactionRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -47,7 +46,7 @@ public class TransactionService {
 
     public List<TransactionReadDto> findAllTransactions(Integer pageNum, Integer perPage) {
         List<Transaction> transactions = transactionRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
-        return transactions.stream().map(transactionMapper::toReadDto).collect(Collectors.toList());
+        return transactionMapper.map(transactions);
     }
 
 }

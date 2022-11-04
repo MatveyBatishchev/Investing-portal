@@ -7,12 +7,15 @@ import ru.investing_portal.models.domain.Transaction;
 import ru.investing_portal.repos.CoinRepository;
 import ru.investing_portal.repos.PortfolioRepository;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", config = IgnoreUnmappedMapperConfig.class,
         uses = {CoinRepository.class, PortfolioRepository.class, CoinMapper.class})
 public interface TransactionMapper {
 
-    @Mapping(target="coinShortDto", source = "coin", qualifiedByName = "toShortDto")
+    @Mapping(target="coinShortDto", source = "coin", qualifiedByName = "toCoinShortDto")
     @Mapping(target="portfolioId", expression = "java(transaction.getPortfolio().getId())")
+    @Named("toTransactionReadDto")
     TransactionReadDto toReadDto(Transaction transaction);
 
     @Mapping(target = "id", ignore = true) // during creating id will generate automatically
@@ -24,4 +27,7 @@ public interface TransactionMapper {
     @Mapping(target="portfolio", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateTransactionFromDto(TransactionCreateDto transactionCreateDto, @MappingTarget Transaction entity);
+
+    @IterableMapping(qualifiedByName = "toTransactionReadDto")
+    List<TransactionReadDto> map(List<Transaction> transactions);
 }

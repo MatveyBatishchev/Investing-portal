@@ -11,7 +11,6 @@ import ru.investing_portal.repos.WatchlistRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +30,7 @@ public class WatchlistService {
     }
 
     public WatchlistReadDto findWatchlistById(int id) {
-        return watchlistMapper.toDto(getWatchlistById(id));
+        return watchlistMapper.toReadDto(getWatchlistById(id));
     }
 
     public void updateWatchlist(int id, WatchlistCreateDto watchlistCreateDto) {
@@ -46,8 +45,8 @@ public class WatchlistService {
     }
 
     public List<WatchlistReadDto> findAllWatchlists(Integer pageNum, Integer perPage) {
-        List<Watchlist> portfolios = watchlistRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
-        return portfolios.stream().map(watchlistMapper::toDto).collect(Collectors.toList());
+        List<Watchlist> watchlists = watchlistRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
+        return watchlistMapper.map(watchlists);
     }
 
     public void addCoinToWatchlist(int watchlistId, int coinId) {

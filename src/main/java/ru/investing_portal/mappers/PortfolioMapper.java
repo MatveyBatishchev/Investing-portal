@@ -4,6 +4,8 @@ import org.mapstruct.*;
 import ru.investing_portal.dto.PortfolioDto;
 import ru.investing_portal.models.domain.Portfolio;
 
+import java.util.List;
+
 
 @Mapper(componentModel = "spring", config = IgnoreUnmappedMapperConfig.class)
 public interface PortfolioMapper {
@@ -16,4 +18,7 @@ public interface PortfolioMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updatePortfolioFromDto(PortfolioDto portfolioDto, @MappingTarget Portfolio entity);
+
+    List<PortfolioDto> map(List<Portfolio> portfolios);
+
 }
