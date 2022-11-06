@@ -15,10 +15,7 @@ public class TransactionReadDto {
     private int id;
 
     @Schema(example = "1", required = true)
-    private int portfolioId;
-
-    @Schema(required = true)
-    private CoinShortDto coinShortDto;
+    private int transactionGroupId;
 
     @Schema(example = "20564.88", required = true)
     private double pricePerCoin;

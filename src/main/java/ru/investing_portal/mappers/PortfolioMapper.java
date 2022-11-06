@@ -12,7 +12,6 @@ public interface PortfolioMapper {
 
     PortfolioDto toDto(Portfolio portfolio);
 
-    // {transactions} are unmapped properties ↓↓↓
     @Mapping(target = "id", ignore = true) // during creating id will generate automatically
     Portfolio toPortfolio(PortfolioDto portfolioDto);
 

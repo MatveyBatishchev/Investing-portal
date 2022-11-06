@@ -1,9 +1,11 @@
 package ru.investing_portal.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.investing_portal.dto.CoinFullDto;
+import ru.investing_portal.feign.CoinGekoClient;
 import ru.investing_portal.mappers.CoinMapper;
 import ru.investing_portal.models.domain.Coin;
 import ru.investing_portal.repos.CoinRepository;
@@ -17,7 +19,16 @@ public class CoinService {
 
     private final CoinRepository coinRepository;
 
+    private final CoinGekoClient coinGekoClient;
+
     private final CoinMapper coinMapper;
+
+    @Value("${project.base-currency}")
+    private String baseCurrency;
+
+    @Value("${feign.coingeko.price_change_percentage}")
+    private String priceChangePercentage;
+
 
     private Coin getCoinById(int id) {
         return coinRepository.findById(id).orElseThrow(() ->
@@ -50,6 +61,11 @@ public class CoinService {
 
     public List<CoinFullDto> findByCategoryId(int categoryId, Integer pageNum, Integer perPage) {
         return coinMapper.map(coinRepository.findCoinsByCategoriesId(categoryId, PageRequest.of(pageNum, perPage)));
+    }
+
+    public void test() {
+        List<Coin> coins = coinGekoClient.getCoinMarketsData(baseCurrency, priceChangePercentage);
+        coinRepository.saveAll(coins);
     }
 
 }

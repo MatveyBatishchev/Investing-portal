@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-transaction_group-table
+      author: MYBatishchev
+      comment: "Создание таблицы с записями о группах транзакций"
+      changes:
+        - tagDatabase:
+            tag: create-transaction_group-table
+        - createTable:
+            tableName: transaction_group
+            remarks: "Таблица с записями о группах транзакций"
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: coin_id
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: portfolio_id
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: holdings
+                  type: numeric
+                  constraints:
+                    nullable: false
+              - column:
+                  name: holdings_value
+                  type: double precision
+                  constraints:
+                    nullable: false
+              - column:
+                  name: avg_price
+                  type: numeric
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price_change
+                  type: numeric
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price_change_percentage
+                  type: double
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: transaction_group
+            columnNames: coin_id, portfolio_id
+            constraintName: transaction_group_unique_key

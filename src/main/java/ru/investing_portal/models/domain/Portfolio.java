@@ -31,7 +31,7 @@ public class Portfolio {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy="portfolio")
-    private Set<Transaction> transactions = new HashSet<>();
+    private Set<TransactionGroup> transactionGroups = new HashSet<>();
 
     /**
      * Комментарии к портфолио

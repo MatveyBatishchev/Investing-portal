@@ -41,4 +41,6 @@ public interface CoinController {
                                        @RequestParam(value = "page", defaultValue = "0", required = false) Integer pageNum,
                                        @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);
 
+    @GetMapping(value = "/test")
+    void test();
 }

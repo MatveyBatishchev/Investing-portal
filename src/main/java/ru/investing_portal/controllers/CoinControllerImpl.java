@@ -43,5 +43,9 @@ public class CoinControllerImpl implements CoinController {
         return coinService.findByCategoryId(categoryId, pageNum, perPage);
     }
 
+    public void test() {
+        coinService.test();
+    }
+
 
 }

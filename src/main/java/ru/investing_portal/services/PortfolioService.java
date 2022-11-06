@@ -44,11 +44,7 @@ public class PortfolioService {
     }
 
     public List<PortfolioDto> findAllPortfolios(Integer pageNum, Integer perPage) {
-        List<Portfolio> portfolios = portfolioRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
-        return portfolioMapper.map(portfolios);
+        return portfolioMapper.map(portfolioRepository.findAll(PageRequest.of(pageNum, perPage)).getContent());
     }
-
-
-
 
 }

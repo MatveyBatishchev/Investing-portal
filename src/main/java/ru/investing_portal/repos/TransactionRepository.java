@@ -6,5 +6,4 @@ import ru.investing_portal.models.domain.Transaction;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
-
 }

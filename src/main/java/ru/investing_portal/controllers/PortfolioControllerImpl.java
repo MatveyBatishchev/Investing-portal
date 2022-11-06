@@ -13,7 +13,6 @@ public class PortfolioControllerImpl implements PortfolioController {
 
     private final PortfolioService portfolioService;
 
-
     @Override
     public void create(PortfolioDto portfolioDto) {
         portfolioService.createPortfolio(portfolioDto);
@@ -38,4 +37,5 @@ public class PortfolioControllerImpl implements PortfolioController {
     public List<PortfolioDto> readAll(Integer pageNum, Integer perPage) {
         return portfolioService.findAllPortfolios(pageNum, perPage);
     }
+
 }

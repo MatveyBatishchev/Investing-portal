@@ -30,6 +30,6 @@ public interface PortfolioController {
     @GetMapping(value = "/list", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     List<PortfolioDto> readAll(@RequestParam(value = "page", defaultValue = "0", required = false) Integer pageNum,
-                            @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);
+                               @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);
 
 }
