@@ -36,6 +36,11 @@ public class TransactionControllerImpl implements TransactionController {
         transactionService.deleteTransactionById(id);
     }
 
+    @Override
+    public List<TransactionReadDto> readByGroup(int groupId) {
+        return transactionService.findTransactionsByGroupId(groupId);
+    }
+
 
     // Transaction Groups
     @Override

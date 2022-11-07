@@ -19,6 +19,10 @@ public class TransactionGroupDto {
 
     private BigDecimal avgPrice;
 
+    private BigDecimal totalSpend;
+
+    private double priceChange;
+
     private double priceChangePercentage;
 
 }

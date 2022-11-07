@@ -25,7 +25,7 @@ public class TransactionGroup {
      */
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="portfolio_id")
     private Portfolio portfolio;
 
@@ -34,7 +34,7 @@ public class TransactionGroup {
      */
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="coin_id")
     private Coin coin;
 
@@ -43,7 +43,7 @@ public class TransactionGroup {
      */
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy="transactionGroup", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy="transactionGroup")
     private Set<Transaction> transactions = new HashSet<>();
 
     /**
@@ -63,6 +63,12 @@ public class TransactionGroup {
      */
     @Column(name="avg_price")
     private BigDecimal avgPrice;
+
+    /**
+     * Сумма потраченная на все транзакции
+     */
+    @Column(name="total_spend")
+    private BigDecimal totalSpend;
 
     /**
      * Изменения стоимости владений с момента покупки

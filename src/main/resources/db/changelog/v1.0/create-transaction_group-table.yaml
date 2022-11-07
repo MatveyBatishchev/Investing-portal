@@ -42,6 +42,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: total_spend
+                  type: numeric
+                  constraints:
+                    nullable: false
+              - column:
                   name: price_change
                   type: numeric
                   constraints:

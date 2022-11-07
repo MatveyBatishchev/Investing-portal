@@ -4,9 +4,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 @Data
-public class PortfolioDto {
+public class PortfolioShortDto {
 
     @Schema(example = "1", required = true)
     private int id;
@@ -18,5 +19,7 @@ public class PortfolioDto {
     @Schema(example = "Портфолио с основными траназакциями на binance", required = false)
     @Size()
     private String comments;
+
+    private BigDecimal totalBalance;
 
 }

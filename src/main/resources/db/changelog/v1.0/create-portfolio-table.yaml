@@ -23,6 +23,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: balance_24h
+                  type: numeric
+                  remarks: "Баланс портфолио, 24 назад от текущего времени"
+                  constraints:
+                    nullable: true
+              - column:
                   name: comments
                   type: text
                   remarks: "Комментарии к портфолио"

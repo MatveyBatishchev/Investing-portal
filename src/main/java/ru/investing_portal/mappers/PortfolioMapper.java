@@ -1,23 +1,30 @@
 package ru.investing_portal.mappers;
 
 import org.mapstruct.*;
-import ru.investing_portal.dto.PortfolioDto;
+import ru.investing_portal.dto.PortfolioFullDto;
+import ru.investing_portal.dto.PortfolioShortDto;
 import ru.investing_portal.models.domain.Portfolio;
 
 import java.util.List;
 
 
-@Mapper(componentModel = "spring", config = IgnoreUnmappedMapperConfig.class)
+@Mapper(componentModel = "spring", config = IgnoreUnmappedMapperConfig.class, uses = {TransactionMapper.class})
 public interface PortfolioMapper {
 
-    PortfolioDto toDto(Portfolio portfolio);
+    PortfolioFullDto toFullDto(Portfolio portfolio);
+
+    @Named("toPortfolioShortDto")
+    PortfolioShortDto toShortDto(Portfolio portfolio);
 
     @Mapping(target = "id", ignore = true) // during creating id will generate automatically
-    Portfolio toPortfolio(PortfolioDto portfolioDto);
+    @Mapping(target = "balance24h", constant = "0.0")
+    // there is no totalBalance in Portfolio class, so it ignores
+    Portfolio toPortfolio(PortfolioShortDto portfolioShortDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updatePortfolioFromDto(PortfolioDto portfolioDto, @MappingTarget Portfolio entity);
+    void updatePortfolioFromDto(PortfolioShortDto portfolioShortDto, @MappingTarget Portfolio entity);
 
-    List<PortfolioDto> map(List<Portfolio> portfolios);
+    @IterableMapping(qualifiedByName = "toPortfolioShortDto")
+    List<PortfolioShortDto> map(List<Portfolio> portfolios);
 
 }

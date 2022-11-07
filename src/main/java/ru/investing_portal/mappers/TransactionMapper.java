@@ -9,6 +9,7 @@ import ru.investing_portal.models.domain.TransactionGroup;
 import ru.investing_portal.repos.CoinRepository;
 import ru.investing_portal.repos.PortfolioRepository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Mapper(componentModel = "spring", config = IgnoreUnmappedMapperConfig.class,
@@ -20,6 +21,7 @@ public interface TransactionMapper {
     Transaction toTransaction(TransactionCreateDto transactionCreateDto);
 
     @Named("toTransactionReadDto")
+    @Mapping(target="transactionGroupId", expression = "java(transaction.getTransactionGroup().getId())")
     TransactionReadDto toReadDto(Transaction transaction);
 
     @Mapping(target="transactionGroup", ignore=true)
@@ -38,10 +40,15 @@ public interface TransactionMapper {
     TransactionGroup toTransactionGroup(TransactionCreateDto transactionCreateDto);
 
     @Named("toTransactionGroupShortDto")
+    @Mapping(target="portfolioId", expression = "java(transactionGroup.getPortfolio().getId())")
     @Mapping(target="coinShortDto", source="coin", qualifiedByName = "toCoinShortDto")
     TransactionGroupDto toGroupDto(TransactionGroup transactionGroup);
 
     @IterableMapping(qualifiedByName = "toTransactionGroupShortDto")
-    List<TransactionGroupDto> map(List<TransactionGroup> transactionGroups);
+    @Named("mapToTransactionGroupDtoList")
+    List<TransactionGroupDto> mapGroups(Collection<TransactionGroup> transactionGroups);
+
+    @IterableMapping(qualifiedByName = "toTransactionReadDto")
+    List<TransactionReadDto> mapTransactions(List<Transaction> transactions);
 
 }

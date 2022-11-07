@@ -30,6 +30,10 @@ public interface TransactionController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable("id") int id);
 
+    @GetMapping(value = "/by-group", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    List<TransactionReadDto> readByGroup(@RequestParam("group_id") int groupId);
+
     // Transaction groups
     @GetMapping(value = "/group/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
