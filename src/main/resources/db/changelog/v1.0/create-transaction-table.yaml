@@ -17,12 +17,7 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: coin_id
-                  type: integer
-                  constraints:
-                    nullable: false
-              - column:
-                  name: portfolio_id
+                  name: transaction_group_id
                   type: integer
                   constraints:
                     nullable: false
@@ -37,7 +32,7 @@ databaseChangeLog:
                   type: numeric
                   remarks: "Цена за единицу криптовалюты"
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: amount
                   type: double precision
@@ -68,7 +63,3 @@ databaseChangeLog:
                   remarks: "Комментарии к транзакции"
                   constraints:
                     nullable: true
-        - addUniqueConstraint:
-            tableName: transaction
-            columnNames: coin_id, portfolio_id, date
-            constraintName: transaction_unique_key

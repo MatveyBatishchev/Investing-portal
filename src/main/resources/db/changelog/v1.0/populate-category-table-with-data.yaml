@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: populate-category-table-with-data
+      author: MYBatishchev
+      comment: "Заполняет таблицу категорий необходимыми данными (названия)"
+      changes:
+        - tagDatabase:
+            tag: populate-category-table-with-data
+        - sqlFile:
+            dbms: "postgresql"
+            encoding: "utf8"
+            endDelimiter: \nGO
+            splitStatements: true
+            stripComments: true
+            relativeToChangelogFile: false
+            path: ./src/main/resources/db/changelog/v1.0/sql/fill-in-category-table.sql

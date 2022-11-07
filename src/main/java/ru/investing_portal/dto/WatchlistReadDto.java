@@ -4,9 +4,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
-public class WatchlistDto {
+public class WatchlistReadDto {
 
     @Schema(example = "1", required = true)
     private int id;
@@ -18,5 +19,8 @@ public class WatchlistDto {
     @Schema(example = "Эксперементальные идеи с reddit", required = false)
     @Size()
     private String comments;
+
+    @Schema(required = false)
+    private List<CoinShortDto> coins;
 
 }

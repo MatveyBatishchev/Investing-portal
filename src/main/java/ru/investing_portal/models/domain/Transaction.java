@@ -23,22 +23,13 @@ public class Transaction {
     private int id;
 
     /**
-     * Портфолио, в котором была совершена транзакция
+     * Группа транзакций, с которой связана транзакция
      */
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne
-    @JoinColumn(name="portfolio_id")
-    private Portfolio portfolio;
-
-    /**
-     * Монета, связанная с транзакцией
-     */
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @ManyToOne
-    @JoinColumn(name="coin_id")
-    private Coin coin;
+    @JoinColumn(name="transaction_group_id")
+    private TransactionGroup transactionGroup;
 
     /**
      * Цена за единику криптомонеты

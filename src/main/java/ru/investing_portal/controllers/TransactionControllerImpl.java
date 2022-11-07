@@ -3,6 +3,7 @@ package ru.investing_portal.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import ru.investing_portal.dto.TransactionCreateDto;
+import ru.investing_portal.dto.TransactionGroupDto;
 import ru.investing_portal.dto.TransactionReadDto;
 import ru.investing_portal.services.TransactionService;
 
@@ -14,6 +15,7 @@ public class TransactionControllerImpl implements TransactionController {
 
     private final TransactionService transactionService;
 
+    // Transactions
     @Override
     public void create(TransactionCreateDto transactionCreateDto) {
         transactionService.createTransaction(transactionCreateDto);
@@ -35,8 +37,25 @@ public class TransactionControllerImpl implements TransactionController {
     }
 
     @Override
-    public List<TransactionReadDto> readAll(Integer pageNum, Integer perPage) {
-        return transactionService.findAllTransactions(pageNum, perPage);
+    public List<TransactionReadDto> readByGroup(int groupId) {
+        return transactionService.findTransactionsByGroupId(groupId);
+    }
+
+
+    // Transaction Groups
+    @Override
+    public TransactionGroupDto readGroup(int groupId) {
+        return transactionService.findTransactionGroupById(groupId);
+    }
+
+    @Override
+    public void deleteGroup(int groupId) {
+        transactionService.deleteTransactionGroupById(groupId);
+    }
+
+    @Override
+    public List<TransactionGroupDto> readGroupByPortfolioId(int portfolioId) {
+        return transactionService.findTransactionGroupsByPortfolioId(portfolioId);
     }
 
 }

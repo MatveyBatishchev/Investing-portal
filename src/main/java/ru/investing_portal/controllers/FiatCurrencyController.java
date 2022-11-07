@@ -1,12 +1,14 @@
 package ru.investing_portal.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.investing_portal.models.domain.FiatCurrency;
 
 import java.util.List;
 
-@RequestMapping("/fiat_currency")
+@Tag(name="Fiat-currencies")
+@RequestMapping("/fiat_currencies")
 public interface FiatCurrencyController {
 
     @GetMapping(value = "/{id}", produces = "application/json")

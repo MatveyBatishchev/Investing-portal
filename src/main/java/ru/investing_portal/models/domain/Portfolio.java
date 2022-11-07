@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,12 +32,25 @@ public class Portfolio {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy="portfolio")
-    private Set<Transaction> transactions = new HashSet<>();
+    private Set<TransactionGroup> transactionGroups = new HashSet<>();
 
     /**
      * Комментарии к портфолио
      */
     @Column(name="comments")
     private String comments;
+
+    /**
+     * Баланс портфолио 24 назад
+     */
+    @Column(name="balance_24h")
+    private BigDecimal balance24h;
+
+    /**
+     * Баланс портфолио
+     */
+    @Transient
+    private BigDecimal totalBalance;
+
 
 }

@@ -1,22 +1,22 @@
 databaseChangeLog:
   - changeSet:
-      id: add-fk-transaction-coin-portfolio
+      id: add-fk-transaction_group-coin-portfolio
       author: MYBatishchev
-      comment: "Автоматически удаляет строки из transaction при удалении coin или portfolio"
+      comment: "Автоматически удаляет строки из transaction_group при удалении coin или portfolio"
       changes:
         - tagDatabase:
-            tag: add-fk-transaction-coin-portfolio
+            tag: add-fk-transaction_group-coin-portfolio
         - addForeignKeyConstraint:
-            baseTableName: transaction
+            baseTableName: transaction_group
             baseColumnNames: coin_id
-            constraintName: fk_transaction_coin_id
+            constraintName: fk_transaction_group_coin_id
             onDelete: CASCADE
             referencedTableName: coin
             referencedColumnNames: id
         - addForeignKeyConstraint:
-            baseTableName: transaction
+            baseTableName: transaction_group
             baseColumnNames: portfolio_id
-            constraintName: fk_transaction_portfolio_id
+            constraintName: fk_transaction_group_portfolio_id
             onDelete: CASCADE
             referencedTableName: portfolio
             referencedColumnNames: id

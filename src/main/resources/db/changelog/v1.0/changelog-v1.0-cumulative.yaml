@@ -16,10 +16,16 @@ databaseChangeLog:
       file: add-fk-watchlist_coin-watchlist-coin.yaml
   - include:
       relativeToChangelogFile: true
+      file: create-transaction_group-table.yaml
+  - include:
+      relativeToChangelogFile: true
       file: create-transaction-table.yaml
   - include:
       relativeToChangelogFile: true
-      file: add-fk-transaction-coin-portfolio.yaml
+      file: add-fk-transaction_group-coin-portfolio.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: add-fk-transaction_group-transaction.yaml
   - include:
       relativeToChangelogFile: true
       file: create-web_resource-table.yaml
@@ -41,3 +47,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: populate-fiat-сurrency-table-with-data.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: populate-category-table-with-data.yaml

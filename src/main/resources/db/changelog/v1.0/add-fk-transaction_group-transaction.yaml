@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-fk-transaction-transaction_group
+      author: MYBatishchev
+      comment: "Автоматически удаляет строки из transaction при удалении transaction_group"
+      changes:
+        - tagDatabase:
+            tag: add-fk-transaction-transaction_group
+        - addForeignKeyConstraint:
+            baseTableName: transaction
+            baseColumnNames: transaction_group_id
+            constraintName: fk_transaction_transaction_group_id
+            onDelete: CASCADE
+            referencedTableName: transaction_group
+            referencedColumnNames: id
