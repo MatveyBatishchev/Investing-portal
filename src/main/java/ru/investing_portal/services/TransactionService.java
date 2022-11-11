@@ -6,10 +6,8 @@ import ru.investing_portal.dto.TransactionCreateDto;
 import ru.investing_portal.dto.TransactionGroupDto;
 import ru.investing_portal.dto.TransactionReadDto;
 import ru.investing_portal.mappers.TransactionMapper;
-import ru.investing_portal.models.domain.Coin;
 import ru.investing_portal.models.domain.Transaction;
 import ru.investing_portal.models.domain.TransactionGroup;
-import ru.investing_portal.models.domain.TransactionType;
 import ru.investing_portal.repos.TransactionGroupRepository;
 import ru.investing_portal.repos.TransactionRepository;
 
@@ -38,19 +36,18 @@ public class TransactionService {
     }
 
     public void createTransaction(TransactionCreateDto transactionCreateDto) {
+
         int coinId = transactionCreateDto.getCoinId();
         int portfolioId = transactionCreateDto.getPortfolioId();
         TransactionGroup transactionGroup = transactionGroupRepository.findByCoinIdAndPortfolioId(coinId, portfolioId);
         Transaction transaction = transactionMapper.toTransaction(transactionCreateDto);
 
         if (transactionGroup == null) {
-            TransactionGroup newTransactionGroup = transactionMapper.toTransactionGroup(transactionCreateDto);
-            // FIXME
-            if (transaction.getTransactionType() == TransactionType.BUY) {
-                newTransactionGroup.setTotalSpend(transaction.getSum());
-            }
-            else {
-                newTransactionGroup.setTotalSpend(BigDecimal.ONE);
+            TransactionGroup newTransactionGroup = transactionMapper.toInitialTransactionGroup(transactionCreateDto);
+            switch (transaction.getTransactionType()) {
+                case BUY -> newTransactionGroup.setTotalSpend(transaction.getSum());
+                case SELL -> newTransactionGroup.setTotalSpend(transaction.getSum().multiply(BigDecimal.valueOf(-1)));
+                default -> newTransactionGroup.setTotalSpend(BigDecimal.ZERO);
             }
             transaction.setTransactionGroup(newTransactionGroup);
             newTransactionGroup.getTransactions().add(transaction);
@@ -58,9 +55,8 @@ public class TransactionService {
         }
         else {
             transaction.setTransactionGroup(transactionGroup);
-            transactionRepository.save(transaction);
             transactionGroup.getTransactions().add(transaction);
-            fullUpdateTransactionGroupInfo(transactionGroup); // full update and save
+            fullUpdateTransactionGroupInfo(transactionGroup);
             transactionGroupRepository.save(transactionGroup);
         }
     }
@@ -74,21 +70,25 @@ public class TransactionService {
         transactionCreateDto.setId(id);
         transactionMapper.updateTransactionFromDto(transactionCreateDto, dbTransaction);
         transactionRepository.save(dbTransaction);
-        fullUpdateTransactionGroupInfo(dbTransaction.getTransactionGroup()); // full update and save group
+        fullUpdateTransactionGroupInfo(dbTransaction.getTransactionGroup());
         transactionGroupRepository.save(dbTransaction.getTransactionGroup());
     }
 
     public void deleteTransactionById(int id) {
         TransactionGroup transactionGroup = getTransactionById(id).getTransactionGroup();
-        transactionRepository.deleteById(id);
-        fullUpdateTransactionGroupInfo(transactionGroup); // full update and save group
-        transactionGroupRepository.save(transactionGroup);
-
+        if (transactionGroup.getTransactions().size() - 1 == 0)
+            deleteTransactionGroupById(transactionGroup.getId());
+        else {
+            transactionGroup.getTransactions().removeIf(el -> el.getId() == id);
+            fullUpdateTransactionGroupInfo(transactionGroup); // full update and save group
+            transactionGroupRepository.save(transactionGroup);
+        }
     }
 
     public List<TransactionReadDto> findTransactionsByGroupId(int groupId) {
-        return transactionMapper.mapTransactions(transactionRepository.findTransactionsByTransactionGroupId(groupId));
+        return transactionMapper.mapToTransactionReadDto(transactionRepository.findTransactionsByTransactionGroupId(groupId));
     }
+
 
     // Transaction Groups
     private TransactionGroup getTransactionGroupById(int id) {
@@ -109,34 +109,35 @@ public class TransactionService {
     public List<TransactionGroupDto> findTransactionGroupsByPortfolioId(int portfolioId) {
         List<TransactionGroup> transactionGroups = transactionGroupRepository.findTransactionGroupsByPortfolioId(portfolioId);
         transactionGroups.forEach(this::partialUpdateTransactionGroupInfo);
-        return transactionMapper.mapGroups(transactionGroups);
+        return transactionMapper.mapToGroupDto(transactionGroups);
     }
 
     public void partialUpdateTransactionGroupInfo(TransactionGroup transactionGroup) {
-        Coin coin = transactionGroup.getCoin();
-        // holdings value
-        System.out.println("-----------------------------------------------");
-        System.out.println(coin.getCurrentPrice());
-        System.out.println(transactionGroup.getHoldings());
-        transactionGroup.setHoldingsValue(coin.getCurrentPrice()
-                .multiply(BigDecimal.valueOf(transactionGroup.getHoldings()), MathContext.DECIMAL32));
+        BigDecimal currentPrice = transactionGroup.getCoin().getCurrentPrice();
 
+        // holdings value
+        transactionGroup.setHoldingsValue(currentPrice.multiply(transactionGroup.getHoldings(), MathContext.DECIMAL32));
 
         // priceChange
-        transactionGroup.setPriceChange(transactionGroup.getHoldingsValue()
-                .subtract(transactionGroup.getTotalSpend()));
+        transactionGroup.setPriceChange(transactionGroup.getHoldingsValue().subtract(transactionGroup.getTotalSpend()));
 
         // priceChangePercentage
-        transactionGroup.setPriceChangePercentage(transactionGroup.getPriceChange()
-                .divide(transactionGroup.getTotalSpend(), MathContext.DECIMAL32).multiply(ONE_HUNDRED).doubleValue());
-
+        if (transactionGroup.getTotalSpend().equals(BigDecimal.ZERO)) {
+            transactionGroup.setPriceChangePercentage(BigDecimal.ZERO);
+        }
+        else {
+            transactionGroup.setPriceChangePercentage(transactionGroup.getPriceChange()
+                    .divide(transactionGroup.getTotalSpend(), MathContext.DECIMAL32).multiply(ONE_HUNDRED));
+        }
     }
 
     private void fullUpdateTransactionGroupInfo(TransactionGroup transactionGroup) {
         Set<Transaction> transactions = transactionGroup.getTransactions();
-        Coin coin = transactionGroup.getCoin();
+        if (transactions.size() == 0) return;
 
-        double holdings = 0.0;
+        BigDecimal currentPrice = transactionGroup.getCoin().getCurrentPrice();
+
+        BigDecimal holdings = BigDecimal.ZERO;
         int buyTransactionsCounter = 0;
         BigDecimal avgPriceSum = BigDecimal.ZERO;
         BigDecimal totalSpend = BigDecimal.ZERO;
@@ -144,17 +145,17 @@ public class TransactionService {
         for (Transaction transaction : transactions) {
             switch (transaction.getTransactionType()) {
                 case BUY -> {
-                    holdings += transaction.getAmount();
+                    holdings = holdings.add(transaction.getAmount());
                     avgPriceSum = avgPriceSum.add(transaction.getPricePerCoin());
                     buyTransactionsCounter++;
                     totalSpend = totalSpend.add(transaction.getSum());
                 }
                 case SELL -> {
-                    holdings -= transaction.getAmount();
+                    holdings = holdings.subtract(transaction.getAmount());
                     totalSpend = totalSpend.subtract(transaction.getSum());
                 }
-                case TRANSFER_IN -> holdings += transaction.getAmount();
-                case TRANSFER_OUT -> holdings -= transaction.getAmount();
+                case TRANSFER_IN -> holdings = holdings.add(transaction.getAmount());
+                case TRANSFER_OUT -> holdings = holdings.subtract(transaction.getAmount());
             }
         }
 
@@ -162,11 +163,9 @@ public class TransactionService {
         transactionGroup.setHoldings(holdings);
 
         // holdingsValue
-        transactionGroup.setHoldingsValue(coin.getCurrentPrice().multiply(BigDecimal.valueOf(holdings)));
+        transactionGroup.setHoldingsValue(currentPrice.multiply(holdings, MathContext.DECIMAL32));
 
         // avgPrice
-        System.out.println(avgPriceSum);
-        System.out.println(buyTransactionsCounter);
         transactionGroup.setAvgPrice(avgPriceSum.divide(BigDecimal.valueOf(buyTransactionsCounter), MathContext.DECIMAL32));
 
         // totalSpend
@@ -176,8 +175,13 @@ public class TransactionService {
         transactionGroup.setPriceChange(transactionGroup.getHoldingsValue().subtract(totalSpend));
 
         // priceChangePercentage
-        transactionGroup.setPriceChangePercentage(transactionGroup.getPriceChange().divide(totalSpend, MathContext.DECIMAL32)
-                .multiply(ONE_HUNDRED).doubleValue());
+        if (transactionGroup.getTotalSpend().compareTo(BigDecimal.ZERO) == 0) {
+            transactionGroup.setPriceChangePercentage(BigDecimal.ZERO);
+        }
+        else {
+            transactionGroup.setPriceChangePercentage(transactionGroup.getPriceChange().divide(totalSpend, MathContext.DECIMAL32)
+                    .multiply(ONE_HUNDRED));
+        }
     }
 
 }

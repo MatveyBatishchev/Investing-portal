@@ -15,13 +15,11 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO main.coin_category(coin_id, category_id) VALUES (:coinId, :categoryId)", nativeQuery = true)
-    void addCoinToCategory(@Param(value = "categoryId") int categoryId,
-                           @Param(value = "coinId") int coinId);
+    void addCoinToCategory(@Param(value = "categoryId") int categoryId, @Param(value = "coinId") int coinId);
 
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM main.coin_category WHERE coin_id=:coinId AND category_id=:categoryId", nativeQuery = true)
-    void deleteCoinFromCategory(@Param(value = "categoryId") int categoryId,
-                                @Param(value = "coinId") int coinId);
+    void deleteCoinFromCategory(@Param(value = "categoryId") int categoryId, @Param(value = "coinId") int coinId);
 
 }

@@ -1,5 +1,6 @@
 package ru.investing_portal.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,11 @@ public interface FiatCurrencyController {
     @GetMapping(value = "/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     FiatCurrency read(@PathVariable("id") int id);
+
+    @Operation(summary = "Найти фиатную валюту по коду ISO-4217")
+    @GetMapping(value = "/by-code", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    FiatCurrency readByCode(@RequestParam("currency_code") String code);
 
     @GetMapping(value = "/list", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)

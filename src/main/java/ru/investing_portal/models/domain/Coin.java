@@ -30,19 +30,28 @@ public class Coin {
     private int id;
 
     // FIXME: Посмотреть почему выгоднее bidirectional связь
+    /**
+     * Список категорий связанных  с монетой
+     */
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.LAZY, mappedBy="coins")
     private Set<Category> categories = new HashSet<>();
 
+    /**
+     * Список watchlist-ов связанных  с монетой
+     */
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.LAZY, mappedBy="coins")
     private Set<Watchlist> watchlists = new HashSet<>();
 
+    /**
+     * Список веб-ресурсов связанных  с монетой
+     */
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy="coin")
+    @OneToMany(mappedBy="coin", fetch = FetchType.LAZY)
     private Set<WebResource> webResources = new HashSet<>();
 
     /**

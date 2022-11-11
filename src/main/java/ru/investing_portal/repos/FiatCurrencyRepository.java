@@ -11,9 +11,11 @@ import ru.investing_portal.models.domain.FiatCurrency;
 @Repository
 public interface FiatCurrencyRepository extends JpaRepository<FiatCurrency, Integer> {
 
+    FiatCurrency findFiatCurrencyByCode(String code);
+
     @Modifying
     @Transactional
-    @Query(value = "update main.fiat_currency set rate = :rate, last_updated = now() where symbol = :symbol", nativeQuery = true)
+    @Query(value = "UPDATE main.fiat_currency SET rate = :rate, last_updated = now() WHERE symbol = :symbol", nativeQuery = true)
     void updateFiatCurrency(@Param(value = "symbol") String symbol, @Param(value = "rate") double rate);
 
 }

@@ -54,7 +54,7 @@ public class TransactionControllerImpl implements TransactionController {
     }
 
     @Override
-    public List<TransactionGroupDto> readGroupByPortfolioId(int portfolioId) {
+    public List<TransactionGroupDto> readGroupsByPortfolioId(int portfolioId) {
         return transactionService.findTransactionGroupsByPortfolioId(portfolioId);
     }
 

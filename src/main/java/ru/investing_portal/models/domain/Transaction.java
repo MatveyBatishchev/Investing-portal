@@ -27,7 +27,7 @@ public class Transaction {
      */
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="transaction_group_id")
     private TransactionGroup transactionGroup;
 
@@ -41,7 +41,7 @@ public class Transaction {
      * Кол-во купленных монет
      */
     @Column(name="amount")
-    private double amount;
+    private BigDecimal amount;
 
     /**
      * Конечная сумма транзакции

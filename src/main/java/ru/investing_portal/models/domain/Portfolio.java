@@ -29,6 +29,9 @@ public class Portfolio {
     @Column(name="name")
     private String name;
 
+    /**
+     * Группы транзакций связанные с портфолио
+     */
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy="portfolio")
@@ -41,16 +44,18 @@ public class Portfolio {
     private String comments;
 
     /**
+     * Баланс портфолио
+     */
+    @Transient
+    private BigDecimal totalBalance;
+
+    /**
      * Баланс портфолио 24 назад
      */
     @Column(name="balance_24h")
     private BigDecimal balance24h;
 
-    /**
-     * Баланс портфолио
-     */
-    @Transient
-    private BigDecimal totalBalance;
+
 
 
 }

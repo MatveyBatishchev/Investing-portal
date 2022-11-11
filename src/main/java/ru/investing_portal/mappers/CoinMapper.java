@@ -1,12 +1,14 @@
 package ru.investing_portal.mappers;
 
-import org.mapstruct.*;
+import org.mapstruct.IterableMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Named;
 import ru.investing_portal.dto.CoinFullDto;
 import ru.investing_portal.dto.CoinShortDto;
 import ru.investing_portal.models.domain.Coin;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Mapper(componentModel = "spring", config = IgnoreUnmappedMapperConfig.class)
 public interface CoinMapper {
@@ -17,18 +19,11 @@ public interface CoinMapper {
     @Named("toCoinShortDto")
     CoinShortDto toShortDto(Coin coin);
 
-    // {categories, watchlists, webResources} are unmapped properties ↓↓↓
-    @Mapping(target = "id", ignore = true) // during creating id will generate automatically
-    Coin toCoin(CoinFullDto coinFullDto);
-
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateCoinFromDto(CoinFullDto coinFullDto, @MappingTarget Coin entity);
-
     @IterableMapping(qualifiedByName = "toCoinShortDto")
-    List<CoinShortDto> map(Set<Coin> coins);
+    List<CoinShortDto> mapToShortDto(Collection<Coin> coins);
 
     @IterableMapping(qualifiedByName = "toCoinFullDto")
-    List<CoinFullDto> map(List<Coin> coins);
+    List<CoinFullDto> mapToFullDto(Collection<Coin> coins);
 
 
 }

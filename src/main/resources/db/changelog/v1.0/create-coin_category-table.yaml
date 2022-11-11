@@ -2,13 +2,13 @@ databaseChangeLog:
   - changeSet:
       id: create-coin_category-table
       author: MYBatishchev
-      comment: "Создание промежуточной таблицы между криптовалютой и ей категориями"
+      comment: "Создание таблицы посредника между криптовалютой и ей категориями"
       changes:
         - tagDatabase:
             tag: create-coin_category-table
         - createTable:
             tableName: coin_category
-            remarks: "Промежуточная таблица между криптовалютой и ей категориями"
+            remarks: "Таблица посредник между криптовалютой и ей категориями"
             columns:
               - column:
                   name: coin_id

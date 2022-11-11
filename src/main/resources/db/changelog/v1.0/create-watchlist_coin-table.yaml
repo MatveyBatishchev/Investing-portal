@@ -2,13 +2,13 @@ databaseChangeLog:
   - changeSet:
       id: create-watchlist_coin-table
       author: MYBatishchev
-      comment: "Создание промежуточной таблицы между watchlist-ом и монетами"
+      comment: "Создание таблицы посредника между watchlist-ом и монетами"
       changes:
         - tagDatabase:
             tag: create-watchlist_coin-table
         - createTable:
             tableName: watchlist_coin
-            remarks: "Промежуточная таблица между watchlist-ом и монетами"
+            remarks: "Таблица посредник между watchlist-ом и монетами"
             columns:
               - column:
                   name: watchlist_id

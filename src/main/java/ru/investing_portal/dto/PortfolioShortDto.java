@@ -17,9 +17,10 @@ public class PortfolioShortDto {
     private String name;
 
     @Schema(example = "Портфолио с основными траназакциями на binance", required = false)
-    @Size()
+    @Size(max = 160)
     private String comments;
 
+    @Schema(example = "Общий баланс портфолио (при создании игнорируется!!!)", required = false)
     private BigDecimal totalBalance;
 
 }

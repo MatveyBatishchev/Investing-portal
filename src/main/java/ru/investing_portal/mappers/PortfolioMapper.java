@@ -17,8 +17,8 @@ public interface PortfolioMapper {
     PortfolioShortDto toShortDto(Portfolio portfolio);
 
     @Mapping(target = "id", ignore = true) // during creating id will generate automatically
+    @Mapping(target = "totalBalance", ignore = true)
     @Mapping(target = "balance24h", constant = "0.0")
-    // there is no totalBalance in Portfolio class, so it ignores
     Portfolio toPortfolio(PortfolioShortDto portfolioShortDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

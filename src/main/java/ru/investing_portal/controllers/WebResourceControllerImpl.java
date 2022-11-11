@@ -13,7 +13,6 @@ public class WebResourceControllerImpl implements WebResourceController {
 
     private final WebResourceService webResourceService;
 
-
     @Override
     public void create(WebResourceDto webResourceDto) {
         webResourceService.createWebResource(webResourceDto);

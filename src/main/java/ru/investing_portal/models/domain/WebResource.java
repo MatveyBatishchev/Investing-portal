@@ -25,7 +25,7 @@ public class WebResource {
      */
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="coin_id")
     private Coin coin;
 

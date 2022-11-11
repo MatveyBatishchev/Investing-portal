@@ -19,6 +19,11 @@ public class FiatCurrencyControllerImpl implements FiatCurrencyController {
     }
 
     @Override
+    public FiatCurrency readByCode(String code) {
+        return fiatCurrencyService.findFiatCurrencyByCode(code);
+    }
+
+    @Override
     public List<FiatCurrency> readAll(Integer pageNum, Integer perPage) {
         return fiatCurrencyService.findAllFiatCurrencies(pageNum, perPage);
     }

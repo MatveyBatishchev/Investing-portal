@@ -12,21 +12,9 @@ import java.util.List;
 @RequestMapping("/coins")
 public interface CoinController {
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    void create(@RequestBody CoinFullDto coinFullDto);
-
     @GetMapping(value = "/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     CoinFullDto read(@PathVariable("id") int id);
-
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    void update(@PathVariable("id") int id, @RequestBody CoinFullDto coinFullDto);
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    void delete(@PathVariable("id") int id);
 
     @GetMapping(value = "/list", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
@@ -34,12 +22,17 @@ public interface CoinController {
                               @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);
 
 
-    @Operation(summary = "Find all coins associated with exact category")
+    @Operation(summary = "Получить все монеты связанные с конкретной категорией")
     @GetMapping(value = "/by-category", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     List<CoinFullDto> readByCategoryId(@RequestParam("category_id") int categoryId,
                                        @RequestParam(value = "page", defaultValue = "0", required = false) Integer pageNum,
                                        @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);
+
+    @Operation(summary = "Получить все монеты связанные с конкретным watchlist-ом")
+    @GetMapping(value = "/by-watchlist", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    List<CoinFullDto> readByWatchlistId(@RequestParam("watchlist_id") int watchlistId);
 
     @GetMapping(value = "/test")
     void test();

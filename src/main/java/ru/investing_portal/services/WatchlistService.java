@@ -3,8 +3,7 @@ package ru.investing_portal.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import ru.investing_portal.dto.WatchlistCreateDto;
-import ru.investing_portal.dto.WatchlistReadDto;
+import ru.investing_portal.dto.WatchlistDto;
 import ru.investing_portal.mappers.WatchlistMapper;
 import ru.investing_portal.models.domain.Watchlist;
 import ru.investing_portal.repos.WatchlistRepository;
@@ -25,18 +24,18 @@ public class WatchlistService {
                 new EntityNotFoundException("Избранный лист с id " + id + " не был найден!"));
     }
 
-    public void createWatchlist(WatchlistCreateDto watchlistCreateDto) {
-        watchlistRepository.save(watchlistMapper.toWatchlist(watchlistCreateDto));
+    public void createWatchlist(WatchlistDto watchlistDto) {
+        watchlistRepository.save(watchlistMapper.toWatchlist(watchlistDto));
     }
 
-    public WatchlistReadDto findWatchlistById(int id) {
-        return watchlistMapper.toReadDto(getWatchlistById(id));
+    public WatchlistDto findWatchlistById(int id) {
+        return watchlistMapper.toDto(getWatchlistById(id));
     }
 
-    public void updateWatchlist(int id, WatchlistCreateDto watchlistCreateDto) {
+    public void updateWatchlist(int id, WatchlistDto watchlistDto) {
         Watchlist dbWatchlist = getWatchlistById(id);
-        watchlistCreateDto.setId(id);
-        watchlistMapper.updateWatchlistFromDto(watchlistCreateDto, dbWatchlist);
+        watchlistDto.setId(id);
+        watchlistMapper.updateWatchlistFromDto(watchlistDto, dbWatchlist);
         watchlistRepository.save(dbWatchlist);
     }
 
@@ -44,7 +43,7 @@ public class WatchlistService {
         watchlistRepository.deleteById(id);
     }
 
-    public List<WatchlistReadDto> findAllWatchlists(Integer pageNum, Integer perPage) {
+    public List<WatchlistDto> findAllWatchlists(Integer pageNum, Integer perPage) {
         List<Watchlist> watchlists = watchlistRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
         return watchlistMapper.map(watchlists);
     }

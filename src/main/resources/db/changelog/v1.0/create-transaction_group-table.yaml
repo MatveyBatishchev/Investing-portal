@@ -29,31 +29,37 @@ databaseChangeLog:
               - column:
                   name: holdings
                   type: numeric
+                  remarks: "Кол-во единиц монеты"
                   constraints:
                     nullable: false
               - column:
                   name: holdings_value
-                  type: double precision
+                  type: numeric
+                  remarks: "Баланс (активы) группы транзакций"
                   constraints:
                     nullable: false
               - column:
                   name: avg_price
                   type: numeric
+                  remarks: "Средняя цена покупки монеты"
                   constraints:
                     nullable: false
               - column:
                   name: total_spend
                   type: numeric
+                  remarks: "Кол-во потраченных средств на все транзакции"
                   constraints:
                     nullable: false
               - column:
                   name: price_change
                   type: numeric
+                  remarks: "Изменение стоимости активов с момента покупки"
                   constraints:
                     nullable: false
               - column:
                   name: price_change_percentage
-                  type: double
+                  type: numeric
+                  remarks: "Изменение стоимости активов с момента покупки в процентах"
                   constraints:
                     nullable: false
         - addUniqueConstraint:

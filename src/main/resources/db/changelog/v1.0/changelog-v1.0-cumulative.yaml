@@ -25,7 +25,7 @@ databaseChangeLog:
       file: add-fk-transaction_group-coin-portfolio.yaml
   - include:
       relativeToChangelogFile: true
-      file: add-fk-transaction_group-transaction.yaml
+      file: add-fk-transaction-transaction_group.yaml
   - include:
       relativeToChangelogFile: true
       file: create-web_resource-table.yaml
@@ -44,6 +44,7 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: create-fiat_currency-table.yaml
+
   - include:
       relativeToChangelogFile: true
       file: populate-fiat-сurrency-table-with-data.yaml
