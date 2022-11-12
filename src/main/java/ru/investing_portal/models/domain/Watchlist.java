@@ -39,7 +39,7 @@ public class Watchlist {
      */
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="watchlist_coin",
             joinColumns={@JoinColumn(name="watchlist_id")},
             inverseJoinColumns={@JoinColumn(name="coin_id")})

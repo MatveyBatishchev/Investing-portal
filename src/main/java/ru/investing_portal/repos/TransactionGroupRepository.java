@@ -1,7 +1,6 @@
 package ru.investing_portal.repos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.investing_portal.models.domain.TransactionGroup;
 
@@ -14,6 +13,4 @@ public interface TransactionGroupRepository extends JpaRepository<TransactionGro
 
     TransactionGroup findByCoinIdAndPortfolioId(int coinId, int portfolioId);
 
-    @Query(value = "SELECT nextval('main.transaction_group_id_seq');", nativeQuery = true)
-    long getNextValSequence();
 }

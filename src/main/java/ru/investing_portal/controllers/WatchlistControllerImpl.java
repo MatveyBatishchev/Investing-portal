@@ -2,8 +2,7 @@ package ru.investing_portal.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
-import ru.investing_portal.dto.WatchlistCreateDto;
-import ru.investing_portal.dto.WatchlistReadDto;
+import ru.investing_portal.dto.WatchlistDto;
 import ru.investing_portal.services.WatchlistService;
 
 import java.util.List;
@@ -15,18 +14,18 @@ public class WatchlistControllerImpl implements WatchlistController {
     private final WatchlistService watchlistService;
 
     @Override
-    public void create(WatchlistCreateDto watchlistCreateDto) {
-        watchlistService.createWatchlist(watchlistCreateDto);
+    public void create(WatchlistDto watchlistDto) {
+        watchlistService.createWatchlist(watchlistDto);
     }
 
     @Override
-    public WatchlistReadDto read(int id) {
+    public WatchlistDto read(int id) {
         return watchlistService.findWatchlistById(id);
     }
 
     @Override
-    public void update(int id, WatchlistCreateDto watchlistCreateDto) {
-        watchlistService.updateWatchlist(id, watchlistCreateDto);
+    public void update(int id, WatchlistDto watchlistDto) {
+        watchlistService.updateWatchlist(id, watchlistDto);
     }
 
     @Override
@@ -35,7 +34,7 @@ public class WatchlistControllerImpl implements WatchlistController {
     }
 
     @Override
-    public List<WatchlistReadDto> readAll(Integer pageNum, Integer perPage) {
+    public List<WatchlistDto> readAll(Integer pageNum, Integer perPage) {
        return watchlistService.findAllWatchlists(pageNum, perPage);
     }
 

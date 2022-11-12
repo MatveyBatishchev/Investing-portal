@@ -13,7 +13,7 @@ public class SwaggerConfiguration {
     @Bean
     public OpenAPI customOpenApi() {
         return new OpenAPI().info(new Info().title("Crypton API V1.2")
-                .version("1.1")
+                .version("1.2")
                 .description("""
                         Investing portal "Crypton" application interface endpoints documentation
                         
@@ -25,7 +25,7 @@ public class SwaggerConfiguration {
                          - Во всех endpoint-ах на создание объекта в базе id НЕ учитывается
                          - Дату нужно передавать в необходимом формате. Например: 2022-10-27T15:52:56.261Z""")
                 .license(new License().name("Apache 2.0")
-                        .url("http://springdoc.org"))
+                        .url("https://springdoc.org"))
                 .contact(new Contact().name("developer")
                         .email("batishevmatveyy@gmail.com")));
     }

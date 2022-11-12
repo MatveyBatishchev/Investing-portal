@@ -12,6 +12,7 @@ import ru.investing_portal.repos.PortfolioRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
@@ -71,15 +72,17 @@ public class PortfolioService {
     }
 
     private PortfolioFullDto calculateAndConvertPortfolioData(Portfolio portfolio) {
-        Set<TransactionGroup> transactionGroups = portfolio.getTransactionGroups();
+
         PortfolioFullDto portfolioFullDto = portfolioMapper.toFullDto(portfolio);
+        Set<TransactionGroup> transactionGroups = portfolio.getTransactionGroups();
+        if (transactionGroups.size() == 0) return portfolioFullDto;
 
         BigDecimal totalBalance = BigDecimal.ZERO;
         BigDecimal totalProfitLoss = BigDecimal.ZERO;
         HashMap<String, BigDecimal> portfolioAllocation = new HashMap<>();
 
-        double bestPerformer = Double.MIN_VALUE; // biggest price change percentage
-        double worstPerformer = Double.MAX_VALUE; // lowest price change percentage
+        BigDecimal bestPerformer = BigDecimal.valueOf(Double.MIN_VALUE);
+        BigDecimal worstPerformer = BigDecimal.valueOf(Double.MAX_VALUE);
         int bestPerformerId = 0;
         int worstPerformerId = 0;
 
@@ -89,11 +92,11 @@ public class PortfolioService {
             totalProfitLoss = totalProfitLoss.add(transactionGroup.getPriceChange());
             portfolioAllocation.put(transactionGroup.getCoin().getName(), transactionGroup.getHoldingsValue());
 
-            if (bestPerformer < transactionGroup.getPriceChangePercentage()) {
+            if (bestPerformer.compareTo(transactionGroup.getPriceChangePercentage()) < 0) {
                 bestPerformer = transactionGroup.getPriceChangePercentage();
                 bestPerformerId = transactionGroup.getId();
             }
-            if (worstPerformer > transactionGroup.getPriceChangePercentage()) {
+            if (worstPerformer.compareTo(transactionGroup.getPriceChangePercentage()) > 0) {
                 worstPerformer = transactionGroup.getPriceChangePercentage();
                 worstPerformerId = transactionGroup.getId();
             }
@@ -109,18 +112,25 @@ public class PortfolioService {
         portfolioFullDto.setBestPerformerId(bestPerformerId);
         portfolioFullDto.setWorstPerformerId(worstPerformerId);
         portfolioFullDto.setBalanceChange24h(totalBalance.subtract(portfolio.getBalance24h()));
-        portfolioFullDto.setBalanceChangePercentage24h(ONE_HUNDRED);
 
-//            portfolioFullDto.setBalanceChangePercentage24h(portfolioFullDto.getBalanceChange24h()
-//                    .divide(portfolio.getBalance24h(), MathContext.DECIMAL32).multiply(ONE_HUNDRED));
-
+        if (portfolio.getBalance24h().compareTo(BigDecimal.ZERO) == 0) {
+            portfolioFullDto.setBalanceChangePercentage24h(BigDecimal.ZERO);
+        }
+        else {
+            portfolioFullDto.setBalanceChangePercentage24h(portfolioFullDto.getBalanceChange24h()
+                    .divide(portfolio.getBalance24h(), MathContext.DECIMAL32).multiply(ONE_HUNDRED));
+        }
 
         return portfolioFullDto;
     }
 
     // Сохраняет каждые 24 часа состояние портфеля
     private void updatePortfolio24hBalance() {
-
+        List<Portfolio> allPortfolios = portfolioRepository.findAll();
+        for (Portfolio portfolio : allPortfolios) {
+            portfolio.setBalance24h(calculatePortfolioTotalBalance(portfolio));
+            portfolioRepository.save(portfolio);
+        }
     }
 
 }

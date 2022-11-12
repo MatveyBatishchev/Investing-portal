@@ -14,6 +14,9 @@ import java.util.Set;
 @Table(name="transaction_group")
 public class TransactionGroup {
 
+    /**
+     * Идентификатор группы транзакций
+     */
     @Id
     @SequenceGenerator(name="transaction_group_sequence", sequenceName = "transaction_group_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="transaction_group_sequence")
@@ -34,7 +37,7 @@ public class TransactionGroup {
      */
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="coin_id")
     private Coin coin;
 
@@ -43,7 +46,7 @@ public class TransactionGroup {
      */
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy="transactionGroup")
+    @OneToMany(mappedBy="transactionGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Transaction> transactions = new HashSet<>();
 
     /**
@@ -56,7 +59,7 @@ public class TransactionGroup {
      * Кол-во всех монет в обращении (может быть отрицательным значением)
      */
     @Column(name="holdings")
-    private double holdings;
+    private BigDecimal holdings;
 
     /**
      * Средняя цена покупки
@@ -80,6 +83,6 @@ public class TransactionGroup {
      * Процент изменения стоимости владений с момента покупки
      */
     @Column(name="price_change_percentage")
-    private double priceChangePercentage;
+    private BigDecimal priceChangePercentage;
 
 }

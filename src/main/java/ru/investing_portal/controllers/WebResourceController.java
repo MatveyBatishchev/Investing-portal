@@ -33,7 +33,7 @@ public interface WebResourceController {
     List<WebResourceDto> readAll(@RequestParam(value = "page", defaultValue = "0", required = false) Integer pageNum,
                                  @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);
 
-    @Operation(summary = "Find all web-resources associated with exact coin")
+    @Operation(summary = "Получить все веб-ресурсы связанные с конкретной монетой")
     @GetMapping(value = "/by-coin", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     List<WebResourceDto> readByCoinId(@RequestParam("coin_id") int coinId);

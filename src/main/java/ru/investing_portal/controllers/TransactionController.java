@@ -1,5 +1,6 @@
 package ru.investing_portal.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -30,21 +31,26 @@ public interface TransactionController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable("id") int id);
 
+    @Operation(summary = "Получить все транзакции связанные с конкретной группой транзакций")
     @GetMapping(value = "/by-group", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     List<TransactionReadDto> readByGroup(@RequestParam("group_id") int groupId);
 
+
     // Transaction groups
+    @Operation(summary = "Получить группу транзакций по её ID")
     @GetMapping(value = "/group/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     TransactionGroupDto readGroup(@PathVariable("id") int groupId);
 
+    @Operation(summary = "Удалить группу транзакций по её ID")
     @DeleteMapping(value = "/group/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteGroup(@PathVariable("id") int groupId);
 
+    @Operation(summary = "Получить все группы транзакций связанные с конкретным портфолио")
     @GetMapping(value = "/group/by-portfolio", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    List<TransactionGroupDto> readGroupByPortfolioId(@RequestParam("portfolio_id") int portfolioId);
+    List<TransactionGroupDto> readGroupsByPortfolioId(@RequestParam("portfolio_id") int portfolioId);
 
 }

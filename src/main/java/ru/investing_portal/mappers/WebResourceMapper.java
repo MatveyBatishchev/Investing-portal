@@ -5,6 +5,7 @@ import ru.investing_portal.dto.WebResourceDto;
 import ru.investing_portal.models.domain.WebResource;
 import ru.investing_portal.repos.CoinRepository;
 
+import java.util.Collection;
 import java.util.List;
 
 
@@ -12,16 +13,17 @@ import java.util.List;
 public interface WebResourceMapper {
 
     @Mapping(target="coinId", expression = "java(webResource.getCoin().getId())")
+    @Named("ToWebResourceDto")
     WebResourceDto toDto(WebResource webResource);
 
     @Mapping(target = "id", ignore = true) // during creating id will generate automatically
     @Mapping(target="coin", source = "coinId", qualifiedByName = "getCoinReferenceById")
     WebResource toWebResource(WebResourceDto webResourceDto);
 
-    @Mapping(target="coin", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateWebResourceFromDto(WebResourceDto webResourceDto, @MappingTarget WebResource entity);
 
-    List<WebResourceDto> map(List<WebResource> webResources);
+    @IterableMapping(qualifiedByName = "ToWebResourceDto")
+    List<WebResourceDto> map(Collection<WebResource> webResources);
 
 }

@@ -24,7 +24,6 @@ public interface TransactionMapper {
     @Mapping(target="transactionGroupId", expression = "java(transaction.getTransactionGroup().getId())")
     TransactionReadDto toReadDto(Transaction transaction);
 
-    @Mapping(target="transactionGroup", ignore=true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateTransactionFromDto(TransactionCreateDto transactionDto, @MappingTarget Transaction entity);
 
@@ -37,7 +36,7 @@ public interface TransactionMapper {
     @Mapping(target="avgPrice", source="pricePerCoin")
     @Mapping(target="priceChange", constant = "0.0")
     @Mapping(target="priceChangePercentage", constant = "0.0")
-    TransactionGroup toTransactionGroup(TransactionCreateDto transactionCreateDto);
+    TransactionGroup toInitialTransactionGroup(TransactionCreateDto transactionCreateDto);
 
     @Named("toTransactionGroupShortDto")
     @Mapping(target="portfolioId", expression = "java(transactionGroup.getPortfolio().getId())")
@@ -45,10 +44,9 @@ public interface TransactionMapper {
     TransactionGroupDto toGroupDto(TransactionGroup transactionGroup);
 
     @IterableMapping(qualifiedByName = "toTransactionGroupShortDto")
-    @Named("mapToTransactionGroupDtoList")
-    List<TransactionGroupDto> mapGroups(Collection<TransactionGroup> transactionGroups);
+    List<TransactionGroupDto> mapToGroupDto(Collection<TransactionGroup> transactionGroups);
 
     @IterableMapping(qualifiedByName = "toTransactionReadDto")
-    List<TransactionReadDto> mapTransactions(List<Transaction> transactions);
+    List<TransactionReadDto> mapToTransactionReadDto(Collection<Transaction> transactions);
 
 }

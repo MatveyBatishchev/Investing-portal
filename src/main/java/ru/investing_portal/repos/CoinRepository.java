@@ -14,8 +14,10 @@ public interface CoinRepository extends JpaRepository<Coin, Integer> {
     // FIXME: NotNullAPI annotation want to be added
     @Override
     @Named("getCoinReferenceById")
-    Coin getReferenceById(Integer integer);
+    Coin getReferenceById(Integer id);
 
     List<Coin> findCoinsByCategoriesId(int id, Pageable pageable);
+
+    List<Coin> findCoinsByWatchlistsId(int id);
 
 }

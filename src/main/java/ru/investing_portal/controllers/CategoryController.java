@@ -12,18 +12,18 @@ import java.util.List;
 @RequestMapping("/categories")
 public interface CategoryController {
 
-    @Operation(summary = "Get list of all categories")
-    @GetMapping("/list")
+    @Operation(summary = "Получить список всех категорий")
+    @GetMapping(value = "/list", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     List<CategoryDto> readAll(@RequestParam(value = "page", defaultValue = "0", required = false) Integer pageNum,
                               @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);
 
-    @Operation(summary = "Add coin to category")
+    @Operation(summary = "Добавить монету в категорию", deprecated = true)
     @PostMapping("/{id}/add-coin")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void addCoin(@PathVariable("id") int categoryId, @RequestParam("coin_id") int coinId);
 
-    @Operation(summary = "Delete coin from category")
+    @Operation(summary = "Удалить монету из категории", deprecated = true)
     @DeleteMapping("/{id}/delete-coin")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable("id") int categoryId, @RequestParam("coin_id") int coinId);

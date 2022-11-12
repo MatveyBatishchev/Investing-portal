@@ -3,46 +3,40 @@ package ru.investing_portal.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.Size;
-
 @Data
 public class CoinShortDto {
 
-    @Schema(example = "1", required = true)
+    @Schema(example = "1")
     private int id;
 
-    @Schema(example = "bitcoin", required = true)
-    @Size(max = 50)
+    @Schema(example = "bitcoin")
     private String api_id;
 
-    @Schema(example = "BTC", required = true)
-    @Size(max = 8)
+    @Schema(example = "BTC")
     private String symbol;
 
-    @Schema(example = "Bitcoin", required = true)
-    @Size(max = 32)
+    @Schema(example = "Bitcoin")
     private String name;
 
-    @Schema(example = "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579", required = true)
-    @Size(max = 255)
+    @Schema(example = "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579")
     private String image;
 
-    @Schema(example = "20561", required = true)
+    @Schema(example = "20561")
     private double currentPrice;
 
-    @Schema(example = "394568251504", required = true)
+    @Schema(example = "394568251504")
     private double marketCap;
 
-    @Schema(example = "431767465324", required = true)
+    @Schema(example = "431767465324")
     private double fullyDilutedValuation;
 
-    @Schema(example = "0.034399", required = true)
+    @Schema(example = "0.034399")
     private double changePercentage1h;
 
-    @Schema(example = "-0.146127", required = true)
+    @Schema(example = "-0.146127")
     private double changePercentage24h;
 
-    @Schema(example = "7.458260", required = true)
+    @Schema(example = "7.458260")
     private double changePercentage7d;
 
 }

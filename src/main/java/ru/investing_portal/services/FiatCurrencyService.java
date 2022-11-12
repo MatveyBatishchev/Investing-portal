@@ -20,6 +20,10 @@ public class FiatCurrencyService {
                 new EntityNotFoundException("Фиатная валюта с id " + id + " не была найдена!"));
     }
 
+    public FiatCurrency findFiatCurrencyByCode(String code) {
+        return fiatCurrencyRepository.findFiatCurrencyByCode(code);
+    }
+
     public List<FiatCurrency> findAllFiatCurrencies(Integer pageNum, Integer perPage) {
         return fiatCurrencyRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
     }

@@ -35,32 +35,21 @@ public class CoinService {
                 new EntityNotFoundException("Монета с id " + id + " не была найдена!"));
     }
 
-    public void createCoin(CoinFullDto coinFullDto) {
-        coinRepository.save(coinMapper.toCoin(coinFullDto));
-    }
-
     public CoinFullDto findCoinById(int id) {
         return coinMapper.toFullDto(getCoinById(id));
     }
 
-    public void updateCoin(int id, CoinFullDto coinFullDto) {
-        Coin dbCoin = getCoinById(id);
-        coinFullDto.setId(id);
-        coinMapper.updateCoinFromDto(coinFullDto, dbCoin);
-        coinRepository.save(dbCoin);
-    }
-
-    public void deleteCoinById(int id) {
-        coinRepository.deleteById(id);
-    }
-
     public List<CoinFullDto> findAllCoins(Integer pageNum, Integer perPage) {
         List<Coin> coins = coinRepository.findAll(PageRequest.of(pageNum, perPage)).getContent();
-        return coinMapper.map(coins);
+        return coinMapper.mapToFullDto(coins);
     }
 
     public List<CoinFullDto> findByCategoryId(int categoryId, Integer pageNum, Integer perPage) {
-        return coinMapper.map(coinRepository.findCoinsByCategoriesId(categoryId, PageRequest.of(pageNum, perPage)));
+        return coinMapper.mapToFullDto(coinRepository.findCoinsByCategoriesId(categoryId, PageRequest.of(pageNum, perPage)));
+    }
+
+    public List<CoinFullDto> findByWatchlistId(int watchlistId) {
+        return coinMapper.mapToFullDto(coinRepository.findCoinsByWatchlistsId(watchlistId));
     }
 
     public void test() {

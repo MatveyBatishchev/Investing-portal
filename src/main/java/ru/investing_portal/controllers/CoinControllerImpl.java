@@ -14,23 +14,8 @@ public class CoinControllerImpl implements CoinController {
     private final CoinService coinService;
 
     @Override
-    public void create(CoinFullDto coinFullDto) {
-        coinService.createCoin(coinFullDto);
-    }
-
-    @Override
     public CoinFullDto read(int id) {
         return coinService.findCoinById(id);
-    }
-
-    @Override
-    public void update(int id, CoinFullDto coinFullDto) {
-        coinService.updateCoin(id, coinFullDto);
-    }
-
-    @Override
-    public void delete(int id) {
-        coinService.deleteCoinById(id);
     }
 
     @Override
@@ -41,6 +26,11 @@ public class CoinControllerImpl implements CoinController {
     @Override
     public List<CoinFullDto> readByCategoryId(int categoryId, Integer pageNum, Integer perPage) {
         return coinService.findByCategoryId(categoryId, pageNum, perPage);
+    }
+
+    @Override
+    public List<CoinFullDto> readByWatchlistId(int watchlistId) {
+        return null;
     }
 
     public void test() {
