@@ -28,4 +28,9 @@ public class CategoryControllerImpl implements CategoryController {
         categoryService.deleteCoinFromCategory(categoryId, coinId);
     }
 
+    @Override
+    public String tester() {
+        return "Hello world!";
+    }
+
 }

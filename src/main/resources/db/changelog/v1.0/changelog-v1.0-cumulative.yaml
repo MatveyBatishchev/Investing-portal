@@ -51,3 +51,12 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: populate-category-table-with-data.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-user-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-user_role-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: add-fk-user_role-user.yaml

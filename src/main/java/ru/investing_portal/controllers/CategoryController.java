@@ -28,6 +28,9 @@ public interface CategoryController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable("id") int categoryId, @RequestParam("coin_id") int coinId);
 
+    @GetMapping()
+    String tester();
+
     // Задел на то, что дальше категории будут содержать подробную информацию
 
 }
