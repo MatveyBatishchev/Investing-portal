@@ -1,4 +1,4 @@
-package ru.investing_portal.config;
+package ru.investing_portal.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

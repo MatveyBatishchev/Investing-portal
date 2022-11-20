@@ -9,7 +9,7 @@ databaseChangeLog:
         - addForeignKeyConstraint:
             baseTableName: user_role
             baseColumnNames: user_id
-            constraintName: fk_user_id
-            onCascade: delete
+            constraintName: fk_user_role_user_id
+            onDelete: CASCADE
             referencedTableName: user
             referencedColumnNames: id

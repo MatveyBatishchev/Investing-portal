@@ -1,4 +1,4 @@
-package ru.investing_portal.config;
+package ru.investing_portal.config.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -9,11 +9,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import ru.investing_portal.config.security.filters.CustomJWTAuthenticationFilter;
 import ru.investing_portal.services.user.UserDetailServiceImpl;
 
 import java.util.List;
@@ -22,7 +25,7 @@ import java.util.List;
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailServiceImpl userDetailServiceImpl;
 
@@ -39,32 +42,23 @@ public class SecurityConfig {
             "/swagger-ui/**"
     };
 
+    @Override
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf().disable()
-            .cors().configurationSource(corsConfigurationSource())
-            .and()
-                // Я блядский идиот - так как formLogin использует СЕССИИ, а их делал STATELESS
-            .authorizeRequests()
-//            .antMatchers("/**").permitAll()
-            .antMatchers("/categories").hasAuthority("USER")
-            .antMatchers("/**").hasAuthority("ADMIN")
-            .anyRequest().authenticated()
-            .and()
-            .formLogin()
-            .permitAll()
-            .and()
-            .logout()
-            .permitAll();
-        return http.build();
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.debug(true);
     }
 
     @Bean
-    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .authenticationProvider(daoAuthenticationProvider())
-                .build();
+    public AuthenticationManager authenticationManager(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity.getSharedObject(AuthenticationManagerBuilder.class)
+                .authenticationProvider(daoAuthenticationProvider()).build();
+
     }
 
     @Bean
@@ -90,5 +84,27 @@ public class SecurityConfig {
         return source;
     }
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(daoAuthenticationProvider());
+        auth.userDetailsService(userDetailServiceImpl).passwordEncoder(passwordEncoder);
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable();
+        http
+                .cors().configurationSource(corsConfigurationSource());
+        http
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http
+                .authorizeRequests()
+                    .antMatchers("/categories").hasAuthority("USER")
+                    .antMatchers("/login").permitAll()
+                    .anyRequest().authenticated();
+        http
+                .addFilter(new CustomJWTAuthenticationFilter(authenticationManagerBean()));
+    }
 
 }

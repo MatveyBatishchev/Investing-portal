@@ -30,7 +30,7 @@ public class CategoryControllerImpl implements CategoryController {
 
     @Override
     public String tester() {
-        return "Hello world!";
+        return "This server is working!";
     }
 
 }
