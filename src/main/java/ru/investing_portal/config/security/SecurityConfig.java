@@ -13,10 +13,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import ru.investing_portal.config.security.filters.CustomJWTAuthenticationFilter;
+import ru.investing_portal.config.security.filters.CustomJWTAuthorizationFilter;
 import ru.investing_portal.services.user.UserDetailServiceImpl;
 
 import java.util.List;
@@ -100,10 +102,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http
                 .authorizeRequests()
-                    .antMatchers("/categories").hasAuthority("USER")
-                    .antMatchers("/login").permitAll()
+                    .antMatchers("/login", "/users/token/refresh").permitAll()
                     .anyRequest().authenticated();
         http
+                .addFilterBefore(new CustomJWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilter(new CustomJWTAuthenticationFilter(authenticationManagerBean()));
     }
 
