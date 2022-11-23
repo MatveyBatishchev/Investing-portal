@@ -1,6 +1,7 @@
 package ru.investing_portal.config.security;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import ru.investing_portal.config.security.filters.CustomJWTAuthenticationFilter;
+import ru.investing_portal.config.security.filters.AuthenticationEntryPointHandler;
 import ru.investing_portal.config.security.filters.CustomJWTAuthorizationFilter;
 import ru.investing_portal.services.user.UserDetailServiceImpl;
 
@@ -32,6 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailServiceImpl userDetailServiceImpl;
 
     private final PasswordEncoder passwordEncoder;
+
+    @Value("${jwt.hmca256.secret-key}")
+    private String secretKey;
 
     private static final List<String> corsPatterns = List.of("*");
 
@@ -49,7 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -86,6 +89,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 
+    @Bean
+    public AuthenticationEntryPointHandler authenticationEntryPointHandler() {
+        return new AuthenticationEntryPointHandler();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
@@ -101,12 +109,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http
+                .exceptionHandling()
+                .accessDeniedHandler(authenticationEntryPointHandler())
+                .authenticationEntryPoint(authenticationEntryPointHandler());
+        http
                 .authorizeRequests()
-                    .antMatchers("/login", "/users/token/refresh").permitAll()
+                    .antMatchers("/categories").hasAuthority("USER")
+                    .antMatchers("/login", "/token/refresh", "/logout").permitAll()
                     .anyRequest().authenticated();
         http
-                .addFilterBefore(new CustomJWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilter(new CustomJWTAuthenticationFilter(authenticationManagerBean()));
+                .addFilterBefore(new CustomJWTAuthorizationFilter(secretKey), UsernamePasswordAuthenticationFilter.class);
     }
 
 }
