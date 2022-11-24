@@ -16,11 +16,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class ExceptionHandlerFilter extends OncePerRequestFilter {
 
+
     @Override
-    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             filterChain.doFilter(request, response);
-        } catch (RuntimeException | IOException exception) {
+        } catch (Exception exception) {
             Map<String, String> responseBody = new HashMap<>();
             responseBody.put("context-path", request.getContextPath());
             responseBody.put("timestamp", DateTime.now().toString());
