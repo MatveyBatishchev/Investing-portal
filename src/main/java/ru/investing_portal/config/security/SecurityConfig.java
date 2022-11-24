@@ -20,7 +20,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import ru.investing_portal.config.security.filters.AuthenticationEntryPointHandler;
 import ru.investing_portal.config.security.filters.CustomJWTAuthorizationFilter;
-import ru.investing_portal.config.security.filters.ExceptionHandlerFilter;
 import ru.investing_portal.services.user.UserDetailServiceImpl;
 
 import java.util.List;
@@ -64,7 +63,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManager(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.getSharedObject(AuthenticationManagerBuilder.class)
                 .authenticationProvider(daoAuthenticationProvider()).build();
-
     }
 
     @Bean
@@ -116,11 +114,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/categories").hasAuthority("USER")
+                    .antMatchers(SWAGGER_API_LIST).permitAll()
                     .antMatchers("/login", "/token/refresh", "/logout", "/error").permitAll()
                     .anyRequest().authenticated();
         http
-                .addFilterBefore(new CustomJWTAuthorizationFilter(secretKey), UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(new ExceptionHandlerFilter(), UsernamePasswordAuthenticationFilter.class);
+                .logout().logoutUrl("/investing-portal/logout");
+        http
+                .addFilterBefore(new CustomJWTAuthorizationFilter(secretKey), UsernamePasswordAuthenticationFilter.class);
     }
 
 }

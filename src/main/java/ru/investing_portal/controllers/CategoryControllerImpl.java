@@ -27,10 +27,4 @@ public class CategoryControllerImpl implements CategoryController {
     public void delete(int categoryId, int coinId) {
         categoryService.deleteCoinFromCategory(categoryId, coinId);
     }
-
-    @Override
-    public String tester() {
-        return "This server is working!";
-    }
-
 }

@@ -1,4 +1,4 @@
-package ru.investing_portal.config.security;
+package ru.investing_portal.config.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import ru.investing_portal.dto.user.JwtResponse;
 import ru.investing_portal.services.user.UserDetailServiceImpl;
+import ru.investing_portal.services.user.UserDetailsImpl;
 
 import java.util.Date;
 import java.util.List;
@@ -38,7 +39,7 @@ public class JwtTokenUtil {
         this.algorithm = Algorithm.HMAC256(secretKey);
     }
 
-    public JwtResponse generateTokens(UserDetails user) {
+    public JwtResponse generateTokens(UserDetailsImpl user) {
 
         List<String> roles = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
 
@@ -49,9 +50,10 @@ public class JwtTokenUtil {
             .withClaim("roles", roles)
             .sign(algorithm);
 
+        Date refreshTokenExpirationDate = new Date(System.currentTimeMillis() + jwtRefreshTokenExpirationMs);
         String refreshToken = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + jwtRefreshTokenExpirationMs))
+                .withExpiresAt(refreshTokenExpirationDate)
                 .withIssuedAt(issuedAt)
                 .sign(algorithm);
 
@@ -60,7 +62,6 @@ public class JwtTokenUtil {
 
     public JwtResponse refreshToken(String bearerToken) {
         String refreshToken = bearerToken.substring("Bearer ".length());
-        System.out.println(refreshToken);
         JWTVerifier verifier = JWT.require(algorithm).build();
         DecodedJWT decodedJWT = verifier.verify(refreshToken);
 
