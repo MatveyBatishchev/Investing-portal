@@ -1,7 +1,13 @@
 package ru.investing_portal.errors;
 
-public final class UserAlreadyExistException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * Exception throws when account with already existing username is persisted
+ */
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public final class UserAlreadyExistException extends RuntimeException {
 
     public UserAlreadyExistException() {
         super();
