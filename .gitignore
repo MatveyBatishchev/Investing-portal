@@ -33,5 +33,5 @@ build/
 .vscode/
 
 ### Static content ###
-src/main/resources/static
-src/main/resources/templates
+/src/main/resources/static
+/src/main/resources/certs/

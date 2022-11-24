@@ -1,5 +1,6 @@
 package ru.investing_portal.controllers;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import ru.investing_portal.dto.PortfolioShortDto;
 import java.util.List;
 
 @Tag(name="Portfolios")
+@SecurityRequirement(name = "Bearer Authentication")
 @RequestMapping("/portfolios")
 public interface PortfolioController {
 

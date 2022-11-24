@@ -27,5 +27,4 @@ public class CategoryControllerImpl implements CategoryController {
     public void delete(int categoryId, int coinId) {
         categoryService.deleteCoinFromCategory(categoryId, coinId);
     }
-
 }
