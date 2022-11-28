@@ -54,6 +54,19 @@ public class TransactionService {
             transactionGroupRepository.save(newTransactionGroup);
         }
         else {
+            switch (transaction.getTransactionType()) {
+                case BUY -> {
+                    transactionGroup.setHoldings(transactionGroup.getHoldings().add(transaction.getAmount()));
+                    transactionGroup.setTotalSpend(transactionGroup.getTotalSpend().add(transaction.getSum()));
+                    transactionGroup.setAvgPrice(transactionGroup.getTotalSpend().divide(BigDecimal.valueOf(transactionGroup.getTransactions().size()), MathContext.DECIMAL32));
+                }
+                case SELL -> {
+                    transactionGroup.setHoldings(transactionGroup.getHoldings().subtract(transaction.getAmount()));
+                    transactionGroup.setTotalSpend(transactionGroup.getTotalSpend().subtract(transaction.getSum()));
+                }
+                case TRANSFER_IN -> transactionGroup.setHoldings(transactionGroup.getHoldings().add(transaction.getAmount()));
+                case TRANSFER_OUT -> transactionGroup.setHoldings(transactionGroup.getHoldings().subtract(transaction.getAmount()));
+            }
             transaction.setTransactionGroup(transactionGroup);
             transactionGroup.getTransactions().add(transaction);
             fullUpdateTransactionGroupInfo(transactionGroup);
