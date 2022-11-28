@@ -1,4 +1,4 @@
-package ru.investing_portal.config.util;
+package ru.investing_portal.util;
 
 import org.apache.tomcat.util.http.SameSiteCookies;
 import org.springframework.beans.factory.annotation.Value;

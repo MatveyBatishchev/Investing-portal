@@ -59,7 +59,7 @@ public class Coin {
      */
     @JsonProperty("id")
     @Column(name="api_id")
-    private String api_id;
+    private String apiId;
 
     /**
      * Сокращённое название монеты

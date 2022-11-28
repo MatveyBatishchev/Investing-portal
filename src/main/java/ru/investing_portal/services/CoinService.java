@@ -26,7 +26,7 @@ public class CoinService {
     @Value("${project.base-currency}")
     private String baseCurrency;
 
-    @Value("${feign.coingeko.price_change_percentage}")
+    @Value("${feign.coingeko.api.price_change_percentage}")
     private String priceChangePercentage;
 
 
@@ -50,11 +50,6 @@ public class CoinService {
 
     public List<CoinFullDto> findByWatchlistId(int watchlistId) {
         return coinMapper.mapToFullDto(coinRepository.findCoinsByWatchlistsId(watchlistId));
-    }
-
-    public void test() {
-        List<Coin> coins = coinGekoClient.getCoinMarketsData(baseCurrency, priceChangePercentage);
-        coinRepository.saveAll(coins);
     }
 
 }

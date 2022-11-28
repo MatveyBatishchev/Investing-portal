@@ -12,6 +12,9 @@ public interface CoinGekoClient {
 
     @GetMapping("/coins/markets")
     List<Coin> getCoinMarketsData(@RequestParam("vs_currency") String currencyCode,
-                                  @RequestParam("price_change_percentage") String priceChangePercentage);
+                                  @RequestParam("price_change_percentage") String priceChangePercentage,
+                                  @RequestParam("order") String order,
+                                  @RequestParam("per_page") Integer perPage,
+                                  @RequestParam("page") Integer page);
 
 }

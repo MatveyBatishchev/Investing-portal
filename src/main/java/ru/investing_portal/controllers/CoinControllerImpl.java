@@ -33,9 +33,4 @@ public class CoinControllerImpl implements CoinController {
         return null;
     }
 
-    public void test() {
-        coinService.test();
-    }
-
-
 }

@@ -12,10 +12,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import ru.investing_portal.config.util.CookieUtil;
-import ru.investing_portal.config.util.JwtTokenUtil;
 import ru.investing_portal.dto.user.JwtRequest;
 import ru.investing_portal.dto.user.JwtResponse;
+import ru.investing_portal.util.CookieUtil;
+import ru.investing_portal.util.JwtTokenUtil;
 
 import java.util.HashMap;
 import java.util.Map;

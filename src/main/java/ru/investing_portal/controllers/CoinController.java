@@ -34,6 +34,4 @@ public interface CoinController {
     @ResponseStatus(HttpStatus.OK)
     List<CoinFullDto> readByWatchlistId(@RequestParam("watchlist_id") int watchlistId);
 
-    @GetMapping(value = "/test")
-    void test();
 }

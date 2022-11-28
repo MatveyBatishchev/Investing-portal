@@ -11,15 +11,12 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import ru.investing_portal.config.security.filters.AuthenticationEntryPointHandler;
-import ru.investing_portal.config.security.filters.CustomJWTAuthorizationFilter;
 import ru.investing_portal.services.user.UserDetailServiceImpl;
 
 import java.util.List;
@@ -34,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${jwt.hmca256.secret-key}")
+    @Value("${jwt.hmac256.secret-key}")
     private String secretKey;
 
     private static final List<String> corsPatterns = List.of("*");
@@ -54,10 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.debug(true);
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web) -> web.debug(true);
+//    }
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity httpSecurity) throws Exception {
@@ -113,14 +110,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(authenticationEntryPointHandler());
         http
                 .authorizeRequests()
-                    .antMatchers("/categories").hasAuthority("USER")
-                    .antMatchers(SWAGGER_API_LIST).permitAll()
-                    .antMatchers("/login", "/token/refresh", "/logout", "/error").permitAll()
-                    .anyRequest().authenticated();
-        http
-                .logout().logoutUrl("/investing-portal/logout");
-        http
-                .addFilterBefore(new CustomJWTAuthorizationFilter(secretKey), UsernamePasswordAuthenticationFilter.class);
+//                    .antMatchers("/ping").hasAuthority("USER")
+//                    .antMatchers(SWAGGER_API_LIST).permitAll()
+//                    .antMatchers("/login", "/token/refresh", "/logout", "/error").permitAll()
+                    .anyRequest().permitAll();
+//        http
+//                .logout().logoutUrl("/investing-portal/logout");
+//        http
+//                .addFilterBefore(new CustomJWTAuthorizationFilter(secretKey), UsernamePasswordAuthenticationFilter.class);
     }
 
 }

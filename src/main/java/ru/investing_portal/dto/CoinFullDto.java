@@ -13,7 +13,7 @@ public class CoinFullDto {
     private int id;
 
     @Schema(example = "bitcoin")
-    private String api_id;
+    private String apiId;
 
     @Schema(example = "BTC")
     private String symbol;
