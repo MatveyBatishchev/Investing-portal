@@ -25,19 +25,19 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: symbol
-                  type: varchar(8)
+                  type: varchar(15)
                   remarks: "Код / сокращённое название криптовалюты"
                   constraints:
                     nullable: false
               - column:
                   name: name
-                  type: varchar(36)
+                  type: varchar(50)
                   remarks: "Полное название криптовалюты"
                   constraints:
                     nullable: false
               - column:
                   name: image
-                  type: varchar(255)
+                  type: varchar(300)
                   remarks: "Ссылка на изображение с логотипом криптовалюты"
                   constraints:
                     nullable: false
@@ -88,19 +88,19 @@ databaseChangeLog:
                   type: numeric
                   remarks: "Разница цены криптомонеты за 24 часа"
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: market_cap_change_24h
                   type: numeric
                   remarks: " Разница рыночной капитализации криптомонеты за 24 часа"
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: market_cap_change_percentage_24h
                   type: double precision
                   remarks: "Разница рыночной капитализации за 24 часа в процентах"
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: circulating_supply
                   type: numeric
@@ -160,19 +160,19 @@ databaseChangeLog:
                   type: double precision
                   remarks: "Процент изменения цены криптовалюты за 1 час"
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: change_percentage_24h
                   type: double precision
                   remarks: "Процент изменения цены криптовалюты за 24 часа"
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: change_percentage_7d
                   type: double precision
                   remarks: "Процент изменения цены криптовалюты за 7 дней"
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: last_updated
                   type: datetime

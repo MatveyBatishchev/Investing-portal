@@ -15,7 +15,7 @@ public interface FiatCurrencyRepository extends JpaRepository<FiatCurrency, Inte
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE main.fiat_currency SET rate = :rate, last_updated = now() WHERE symbol = :symbol", nativeQuery = true)
-    void updateFiatCurrency(@Param(value = "symbol") String symbol, @Param(value = "rate") double rate);
+    @Query(value = "UPDATE main.fiat_currency SET rate = :rate, last_updated = now() WHERE code = :code", nativeQuery = true)
+    void updateFiatCurrency(@Param(value = "code") String code, @Param(value = "rate") double rate);
 
 }

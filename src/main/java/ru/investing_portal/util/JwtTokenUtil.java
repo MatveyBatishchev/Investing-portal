@@ -1,4 +1,4 @@
-package ru.investing_portal.config.util;
+package ru.investing_portal.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -34,7 +34,7 @@ public class JwtTokenUtil {
     private final Date issuedAt = DateTime.now().toDate();
 
     @Autowired
-    public JwtTokenUtil(UserDetailServiceImpl userDetailService, @Value("${jwt.hmca256.secret-key}") String secretKey) {
+    public JwtTokenUtil(UserDetailServiceImpl userDetailService, @Value("${jwt.hmac256.secret-key}") String secretKey) {
         this.userDetailService = userDetailService;
         this.algorithm = Algorithm.HMAC256(secretKey);
     }
