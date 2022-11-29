@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,10 +14,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import ru.investing_portal.config.security.filters.AuthenticationEntryPointHandler;
+import ru.investing_portal.config.security.filters.CustomJWTAuthorizationFilter;
 import ru.investing_portal.services.user.UserDetailServiceImpl;
 
 import java.util.List;
@@ -110,14 +113,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(authenticationEntryPointHandler());
         http
                 .authorizeRequests()
-//                    .antMatchers("/ping").hasAuthority("USER")
-//                    .antMatchers(SWAGGER_API_LIST).permitAll()
-//                    .antMatchers("/login", "/token/refresh", "/logout", "/error").permitAll()
-                    .anyRequest().permitAll();
-//        http
-//                .logout().logoutUrl("/investing-portal/logout");
-//        http
-//                .addFilterBefore(new CustomJWTAuthorizationFilter(secretKey), UsernamePasswordAuthenticationFilter.class);
+                    .antMatchers("/ping").hasAuthority("USER")
+                    .antMatchers(SWAGGER_API_LIST).permitAll()
+                    .antMatchers("/login", "/token/refresh", "/logout", "/error").permitAll()
+                    .antMatchers(HttpMethod.POST, "/users").permitAll()
+                    .anyRequest().authenticated();
+        http
+                .logout().logoutUrl("/investing-portal/logout");
+        http
+                .addFilterBefore(new CustomJWTAuthorizationFilter(secretKey), UsernamePasswordAuthenticationFilter.class);
     }
 
 }

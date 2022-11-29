@@ -22,17 +22,11 @@ public class Watchlist {
     @Column(name="id")
     private int id;
 
-    /**
-     * Название портфолио
-     */
-    @Column(name="name")
-    private String name;
-
-    /**
-     * Описание watchlist-а
-     */
-    @Column(name="comments")
-    private String comments;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
 
     /**
      * Список монеты связанных с watchlist-ом
@@ -44,5 +38,17 @@ public class Watchlist {
             joinColumns={@JoinColumn(name="watchlist_id")},
             inverseJoinColumns={@JoinColumn(name="coin_id")})
     private Set<Coin> coins = new HashSet<>();
+
+    /**
+     * Название портфолио
+     */
+    @Column(name="name")
+    private String name;
+
+    /**
+     * Описание watchlist-а
+     */
+    @Column(name="comments")
+    private String comments;
 
 }

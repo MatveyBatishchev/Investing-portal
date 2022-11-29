@@ -35,4 +35,5 @@ public interface PortfolioController {
     List<PortfolioShortDto> readAll(@RequestParam(value = "page", defaultValue = "0", required = false) Integer pageNum,
                                     @RequestParam(value = "per_page", defaultValue = "25", required = false) Integer perPage);
 
+
 }

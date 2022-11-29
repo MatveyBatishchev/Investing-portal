@@ -23,11 +23,11 @@ public class Portfolio {
     @Column(name="id")
     private int id;
 
-    /**
-     * Название портфолио
-     */
-    @Column(name="name")
-    private String name;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
 
     /**
      * Группы транзакций связанные с портфолио
@@ -36,6 +36,12 @@ public class Portfolio {
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy="portfolio")
     private Set<TransactionGroup> transactionGroups = new HashSet<>();
+
+    /**
+     * Название портфолио
+     */
+    @Column(name="name")
+    private String name;
 
     /**
      * Комментарии к портфолио

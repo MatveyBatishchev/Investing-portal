@@ -19,4 +19,14 @@ public class UserControllerImpl implements UserController {
         userService.createUser(userDto);
     }
 
+    @Override
+    public UserDto read(int id) {
+        return userService.findUserById(id);
+    }
+
+    @Override
+    public void delete(int id) {
+        userService.deleteUserById(id);
+    }
+
 }

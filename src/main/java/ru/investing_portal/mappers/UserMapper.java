@@ -17,4 +17,6 @@ public interface UserMapper {
     @Mapping(target = "password", qualifiedByName = "encodePassword")
     User toUser(UserDto userDto);
 
+    UserDto toDto(User user);
+
 }

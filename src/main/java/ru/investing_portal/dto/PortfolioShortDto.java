@@ -16,6 +16,9 @@ public class PortfolioShortDto {
     @Size(max=36)
     private String name;
 
+    @Schema(example = "234", required = true)
+    private int userId;
+
     @Schema(example = "Портфолио с основными траназакциями на binance", required = false)
     @Size(max = 160)
     private String comments;

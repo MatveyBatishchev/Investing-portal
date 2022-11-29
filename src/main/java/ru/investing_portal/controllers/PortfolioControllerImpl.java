@@ -39,4 +39,5 @@ public class PortfolioControllerImpl implements PortfolioController {
         return portfolioService.findAllPortfolios(pageNum, perPage);
     }
 
+
 }

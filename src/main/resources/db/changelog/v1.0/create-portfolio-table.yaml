@@ -23,6 +23,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: user_id
+                  type: int
+                  remarks: "Идентификатор пользователя связанного с портфолио"
+                  constraints:
+                    nullable: false
+              - column:
                   name: balance_24h
                   type: numeric
                   remarks: "Баланс портфолио, 24 назад от текущего времени"

@@ -8,8 +8,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.investing_portal.models.domain.Watchlist;
 
+import java.util.List;
+
 @Repository
 public interface WatchlistRepository extends JpaRepository<Watchlist, Integer> {
+
+    List<Watchlist> findAllByUserId(int userId);
 
     // CHECKME: flushAutomatically and clearAutomatically
     @Modifying

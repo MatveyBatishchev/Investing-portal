@@ -4,11 +4,12 @@ import org.mapstruct.*;
 import ru.investing_portal.dto.PortfolioFullDto;
 import ru.investing_portal.dto.PortfolioShortDto;
 import ru.investing_portal.models.domain.Portfolio;
+import ru.investing_portal.repos.UserRepository;
 
 import java.util.List;
 
 
-@Mapper(componentModel = "spring", config = IgnoreUnmappedMapperConfig.class, uses = {TransactionMapper.class})
+@Mapper(componentModel = "spring", config = IgnoreUnmappedMapperConfig.class, uses = {TransactionMapper.class, UserRepository.class})
 public interface PortfolioMapper {
 
     PortfolioFullDto toFullDto(Portfolio portfolio);
@@ -17,6 +18,7 @@ public interface PortfolioMapper {
     PortfolioShortDto toShortDto(Portfolio portfolio);
 
     @Mapping(target = "id", ignore = true) // during creating id will generate automatically
+    @Mapping(target="user", source="userId", qualifiedByName = "getUserReferenceById")
     @Mapping(target = "totalBalance", ignore = true)
     @Mapping(target = "balance24h", constant = "0.0")
     Portfolio toPortfolio(PortfolioShortDto portfolioShortDto);

@@ -23,6 +23,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: user_id
+                  type: int
+                  remarks: "Идентификатор пользователя связанного с watchlist-ом"
+                  constraints:
+                    nullable: false
+              - column:
                   name: comments
                   type: text
                   remarks: "Комментарии к watchlist-у"

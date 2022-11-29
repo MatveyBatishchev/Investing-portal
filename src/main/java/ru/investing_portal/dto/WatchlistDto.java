@@ -15,6 +15,9 @@ public class WatchlistDto {
     @Size(max = 36)
     private String name;
 
+    @Schema(example = "234", required = true)
+    private int userId;
+
     @Schema(example = "Эксперементальные идеи с reddit", required = false)
     @Size(max = 160)
     private String comments;

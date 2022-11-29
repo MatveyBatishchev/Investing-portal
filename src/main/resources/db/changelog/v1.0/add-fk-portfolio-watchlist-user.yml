@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-fk-portfolio-watchlist-user
+      author: MYBatishchev
+      comment: "Задаём внешний ключ user-а в таблице portfolio и watchlist"
+      changes:
+        - tagDatabase:
+            tag: add-fk-portfolio-watchlist-user
+        - addForeignKeyConstraint:
+            baseTableName: portfolio
+            baseColumnNames: user_id
+            constraintName: fk_portfolio_user_id
+            onDelete: CASCADE
+            referencedTableName: user
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: watchlist
+            baseColumnNames: user_id
+            constraintName: fk_watchlist_user_id
+            onDelete: CASCADE
+            referencedTableName: user
+            referencedColumnNames: id

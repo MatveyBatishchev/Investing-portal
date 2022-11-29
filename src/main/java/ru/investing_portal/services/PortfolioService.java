@@ -124,7 +124,7 @@ public class PortfolioService {
         return portfolioFullDto;
     }
 
-    // Сохраняет каждые 24 часа состояние портфеля
+    // CHECKME: Сохраняет каждые 24 часа состояние портфеля
     private void updatePortfolio24hBalance() {
         List<Portfolio> allPortfolios = portfolioRepository.findAll();
         for (Portfolio portfolio : allPortfolios) {
